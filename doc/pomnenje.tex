@@ -1,8 +1,10 @@
-\documentclass[a4paper, 12pt]{article}
+\documentclass[a4paper, 11pt]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[slovene,english]{babel}
 \usepackage[pdftex]{graphicx}
+\usepackage{babelbib}
+
 
 \newcommand{\todo}{\texttt{TODO}} % za TODOje pisat
 
@@ -14,7 +16,7 @@
 
 \section{Uvod}
 
-Kvantne celice, osnovni gradniki kvantnih celičnih avtomatov (v nadaljevanju: QCA - \emph{Quantum-dot Cellular Automata}), same po sebi ne omogočajo pomnenja. (\todo: citacija?)
+Kvantne celice, osnovni gradniki kvantnih celičnih avtomatov (v nadaljevanju: QCA - \emph{Quantum-dot Cellular Automata}), same po sebi ne omogočajo pomnenja \cite{janez_phd}.
 Podobno kot pri tranzistorjih mora načrtovalec (?) digitalnega vezja sestaviti strukturo iz kvantnih celic, ki pomnenje omogoči.
 V tem delu bomo predstavili principe pomnenja v QCA in nekatere strukture iz kvantnih celic, ki simulirajo delovanje tradicionalnih pomnilnih celic.
 
@@ -51,5 +53,8 @@ V tem delu bomo predstavili principe pomnenja v QCA in nekatere strukture iz kva
 \subsection{Analiza delovanja}
 
 
+
+\bibliographystyle{babplain}
+\bibliography{literatura} 
 
 \end{document}
