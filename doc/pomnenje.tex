@@ -16,9 +16,9 @@
 
 \section{Uvod}
 
-Kvantne celice, osnovni gradniki kvantnih celičnih avtomatov (v nadaljevanju: QCA - \emph{Quantum-dot Cellular Automata}), same po sebi ne omogočajo pomnenja \cite{janez_phd}.
+Kvantne celice, osnovni gradniki kvantnih celičnih avtomatov, same po sebi ne omogočajo pomnenja \cite{janez_phd}.
 Podobno kot pri tranzistorjih mora načrtovalec (?) digitalnega vezja sestaviti strukturo iz kvantnih celic, ki pomnenje omogoči.
-V tem delu bomo predstavili principe pomnenja v QCA in nekatere strukture iz kvantnih celic, ki simulirajo delovanje tradicionalnih pomnilnih celic.
+V tem delu bomo predstavili principe pomnenja v kvantnih celičnih avtomatih in nekatere strukture iz kvantnih celic, ki simulirajo delovanje tradicionalnih pomnilnih celic.
 
 
 
@@ -42,7 +42,50 @@ Elektrona se zaradi odbojnih sil med njima v odsotnosti zunanjih vplivov postavi
 \todo: slika dveh stabilnih stanj
 
 Stanje $P = -1$ interpretiramo kot logično vrednost $0$, stanje $P = 1$ pa kot logično vrednost $1$ \cite{lent_1993}.
+Tuneli med pikami so opremljeni s pregradami.
+Elektrona lahko prosto prehajata med pikami, dokler pregrade niso vzpostavljene.
+Vzpostavitev pregrad prehajanje elektronov onemogoči, kar nam omogoča, da stanje celice odčitamo.
+Take celice označujemo kot izhodne.
+Celico lahko tudi prisilimo, da zasede določeno stanje.
+Take celice označujemo kot vhodne.
 
+Kvantni celični avtomat je konstrukt, ki vsebuje eno ali več kvantnih celic, ki zaradi medsebojne bližine interaktirajo druga z drugo.
+Sile med elektroni težijo k vzpostavitvi stanja z najmanjšo skupno energijo.
+V odsotnosti zunanjih sil se kvantna celica postavi v eno izmed dveh stabilnih stanj z verjetnostjo $\frac{1}{2}$, ampak če so v njeni bližini druge kvantne celice, se ta verjetnost spremeni.
+S pravilno postavitvijo celic lahko dosežemo, da se avtomat obnaša kot tradicionalna Boolova preklopna funkcija.
+
+Gradnjo kompleksnejših struktur pričnemo z osnovnimi gradniki.
+Osnovni gradniki predstavljajo poln funkcijski nabor, s katerim lahko implementiramo poljubno preklopno funkcijo.
+Najenostavnejši gradnik je vodilo, prikazano na sliki \todo.
+
+\todo: slika vodila
+
+Vodila preslikajo vhodno vrednost na izhod.
+Uporabljamo jih za povezovanje gradnikov v avtomatu.
+Drugi gradnik je negator, prikazan na sliki \todo.
+
+\todo: slika negatorja
+
+Negatorje lahko uporabimo tudi kot diagonalno vodilo, kjer je dolžina takega vodila sodo število.
+Primer take uporabe je prikaza na sliki \todo.
+
+\todo: slika vodila iz negatorjev
+
+Zadnji osnovni gradnik so večinska oz.~majoritetna vrata, prikazana na sliki \todo.
+
+\todo: slika majoritetnih vrat
+
+Izhod majoritetnih vrat zavzame večinsko vrednost na treh vhodih.
+Z vezavo konstante na enega izmed vhodov majoritetnih vrat dobimo gradnik, ki predstavlja konjunkcijo ali disjunkcijo, kot je prikazano na sliki \todo.
+
+\todo: tabela AND, OR iz majoritetnih
+
+Tok podatkov v avtomatu usmerjamo s pomočjo urinih con.
+Vsaki celici dodelimo eno izmed štirih urinih con, ki se ciklično izmenjujejo.
+Tako omogočimo logično separacijo delov avtomata in način interakcije med njimi.
+Primer avtomata z ločenimi urinimi conami je prikazan na sliki \todo.
+
+\todo: slika avtomata z različnimi urinimi conami
 
 \subsection{Problematika pomnenja}
 
