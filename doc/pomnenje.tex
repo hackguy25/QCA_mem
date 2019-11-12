@@ -4,9 +4,10 @@
 \usepackage[slovene,english]{babel}
 \usepackage[pdftex]{graphicx}
 \usepackage{babelbib}
+\usepackage[dvipsnames]{xcolor}
 
 
-\newcommand{\todo}{\texttt{TODO}} % za TODOje pisat
+\newcommand{\todo}{\textcolor{BrickRed}{\texttt{TODO}}} % za TODOje pisat
 
 \title{Pomnenje s kvantnimi celičnimi avtomati}
 \author{Jasmina Pegan, Blaž Rojc}
@@ -88,6 +89,27 @@ Primer avtomata z ločenimi urinimi conami je prikazan na sliki \todo.
 \todo: slika avtomata z različnimi urinimi conami
 
 \subsection{Problematika pomnenja}
+
+Ko je ura odsotna, je stanje kvantne celice v odsotnosti zunanjih sil nedeterministično.
+Tako kvantnih celic samih ne moremo uporabiti za hrambo podatkov.
+Uvedba ure omogoča, da kvantne celice spravimo v zaklenjeno stanje, v katerem prehajanje elektronov med pikami ni mogoče, kar pomeni, da je stanje zaklenjene kvantne celice deterministično.
+Za pomnenje potrebujemo še način za nadzor stanja, ki naj ga zaklenjena celica zavzame.
+To lahko dosežemo z veriženjem celic, ki ne pripadajo isti urini coni.
+Takšna veriga je prikazana na sliki \todo.
+
+\todo: slika verige s sekvenčnimi urinimi conami
+
+Za samostojno pomnenje to verigo sklenemo v obroč, prikazan na sliki \todo.
+
+\todo: slika obroča s sekvenčnimi urinimi conami
+
+V obroču se stanje med potekom urinega cikla ohranja, kot je prikazano na sliki \todo.
+
+\todo: shema / tabela s stanji v obroču med urinim ciklom (simulacija v QCA Designer)
+
+Za smiselno uporabo želimo to strukturo prirediti tako, da lahko hranjeno stanje poljubno nastavljamo.
+Kako to storimo, je stvar implementacije.
+V nadaljevanju bomo predstavili nekaj obstoječih implementacij pomnilnih struktur.
 
 \subsection{Reverzibilno procesiranje (?)}
 
