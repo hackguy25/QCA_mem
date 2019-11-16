@@ -5,7 +5,7 @@
 \usepackage[pdftex]{graphicx}
 \usepackage{babelbib}
 \usepackage[dvipsnames]{xcolor}
-
+\usepackage{multirow}
 
 \newcommand{\todo}{\textcolor{BrickRed}{\texttt{TODO}}} % za TODOje pisat
 
@@ -116,28 +116,79 @@ V nadaljevanju bomo predstavili nekaj obstoječih implementacij pomnilnih strukt
 
 
 \section{Pomnilne celice}
+Za gradnjo sekvenčnih vezij poleg logičnih vrat potrebujemo tudi pomnilne celice. Osnovne pomnilne celice, ki omogočajo hranjenje enega bita informacije, so RS (Reset Set), JK (Jump Kill), T (Trigger) in D (Delay) pomnilna celica. 
+
 
 \subsection{Obstoječe implementacije}
+V članku \cite{quantum_dot} iz leta 2003 so predstavljene implementacije štirih osnovnih pomnilnih celic. Vse celice porabijo en urin cikel za procesiranje vhodov. Pri postavitvi celic vir uporablja pravilo čimbolj preprostih oblik urinih con in čimmanj le-teh. Po drugi strani pa so nekatere celice zasukane za kot $ 45^{\circ}} $ ali zamaknjene za polovico svoje velikosti, kar lahko negativno vpliva na izvedljivost implementacije. Vir uporablja križanje linij, kar je možno doseči z uporabo alternirajočega vodila (rotiranih celic). \\ Drugi vir \cite{a_novel_approach} iz leta 2018 porabi manj prostora in celic ter ponudi tako izhodno stanje $Q$ kot njegovo negacijo $\bar{Q}$, so pa zato urine cone bolj kompleksne. Po drugi strani ta vir uporablja manj stabilne negatorje kot prvi.
 
 \subsection{Reverzibilne implementacije (?)}
 
 \subsection{Ideje in popravki (?)}
 
 
-
 \section{Implementacija}
+V tem poglavju bomo primerjali predlagane implementacije pomnilnih celic.\\
+\todo: primerjaj implementacije: potratnost, izvedljivost, konsistentnost\\
+\todo: vsem slikam dodati naslov in se sklicati v besedilu\\
+\todo: ali štejemo kot negator tudi določene povezave, ki niso standardna negatorja (navaden in dvojni), ampak opravljajo isto funkcijo? --> vir \cite{quantum_dot}
 
-\todo: struktura poglavja se določi po testiranju/implementaciji
+\begin{tabular}{|c|c|c|c|c|}
+\hline 
+Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Število celic \\ 
+\hline 
+\multirow{2}{*}{D} & \cite{quantum_dot} & 3 & 2 & 68 \\ 
+& \cite{a_novel_approach} & 4 & 2 & 43 \\ 
+\hline 
+\multirow{2}{*}{JK} & \cite{quantum_dot} & 5 & 2 & 90 \\ 
+& \cite{a_novel_approach} & 6 & 2 & 78 \\ 
+\hline 
+\multirow{2}{*}{RS} & \cite{quantum_dot} & 4 & 1 & 76 \\ 
+& \cite{a_novel_approach} & 4 & 2 & 38 \\ 
+\hline 
+\multirow{2}{*}{T} & \cite{quantum_dot} & 5 & 4 & 92 \\  
+& \cite{a_novel_approach} & 6 & 2 & 81 \\ 
+\hline 
+\end{tabular} 
 
-\subsection{Osnovni gradniki}
+\subsection{D pomnilna celica}
+\includegraphics[scale=0.4]{../img/vir_4/d.png} 
+\includegraphics[scale=0.32]{../img/vir_5/d.png} 
 
-\subsection{Sheme}
+\subsection{JK pomnilna celica}
+\includegraphics[scale=0.5]{../img/vir_4/jk.png} 
+\includegraphics[scale=0.35]{../img/vir_5/jk.png} 
+
+\subsection{RS pomnilna celica}
+\includegraphics[scale=0.5]{../img/vir_4/sr.png} 
+\includegraphics[scale=0.3]{../img/vir_5/rs.png} 
+
+\subsection{T pomnilna celica}
+\includegraphics[scale=0.6]{../img/vir_4/t.png} 
+\includegraphics[scale=0.4]{../img/vir_5/t.png} 
+
 
 \subsection{Analiza delovanja}
+\subsubsection{D pomnilna celica}
+\includegraphics[scale=0.5]{../img/vir_4/sim_d.png} \\
+\includegraphics[scale=0.5]{../img/vir_5/sim_d.png}
 
+\subsubsection{JK pomnilna celica}
+\includegraphics[scale=0.5]{../img/vir_4/sim_jk.png} \\
+\includegraphics[scale=0.5]{../img/vir_5/sim_jk.png}
 
+\subsubsection{RS pomnilna celica}
+\includegraphics[scale=0.5]{../img/vir_4/sim_sr.png} \\
+\includegraphics[scale=0.5]{../img/vir_5/sim_rs.png}
+
+\subsubsection{T pomnilna celica}
+\includegraphics[scale=0.5]{../img/vir_4/sim_t.png} \\
+\includegraphics[scale=0.5]{../img/vir_5/sim_t.png} 
+
+\section{Zaključek}
+\todo: kratek povzetek glavnih ugotovitev + smernice za nadaljnje delo
 
 \bibliographystyle{babplain}
-\bibliography{literatura} 
+\bibliography{pomnjenje} 
 
 \end{document}
