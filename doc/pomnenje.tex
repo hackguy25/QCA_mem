@@ -9,6 +9,10 @@
 
 \newcommand{\todo}{\textcolor{BrickRed}{\texttt{TODO}}} % za TODOje pisat
 
+\makeatletter
+\newcommand\tablesize{\@setfontsize\tablesize{8.5}{10.5}} % velikost med small in tiny, fajn za tabele
+\makeatother
+
 \title{Pomnenje s kvantnimi celičnimi avtomati}
 \author{Jasmina Pegan, Blaž Rojc}
 
@@ -94,26 +98,46 @@ Primer take uporabe je prikazan na sliki \ref{img-pregled-negbus}.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.55\textwidth]{../img/pregled/negbus.pdf}
+	\includegraphics[width=0.45\textwidth]{../img/pregled/negbus.pdf}
 	\caption{Vodilo iz negatorjev. Signal potuje od vhoda $x$ do izhoda $y$. Pri tem je negiran $2k$-krat, zato se logična vrednost ne spremeni.}
 	\label{img-pregled-negbus}
 \end{figure}
 
-Zadnji osnovni gradnik so večinska oz.~majoritetna vrata, prikazana na sliki \todo.
+Zadnji osnovni gradnik so večinska oz.~majoritetna vrata, prikazana na sliki \ref{img-pregled-major}.
 
-\todo: slika majoritetnih vrat
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{../img/pregled/major.pdf}
+	\caption{Majoritetna vrata. Izhod $z$ zavzame večinsko vrednost na vhodih $s$, $x$ in $y$.}
+	\label{img-pregled-major}
+\end{figure}
 
 Izhod majoritetnih vrat zavzame večinsko vrednost na treh vhodih.
-Z vezavo konstante na enega izmed vhodov majoritetnih vrat dobimo gradnik, ki predstavlja konjunkcijo ali disjunkcijo, kot je prikazano na sliki \todo.
+Z vezavo konstante na enega izmed vhodov majoritetnih vrat dobimo gradnik, ki predstavlja konjunkcijo ali disjunkcijo, kot je prikazano na sliki \ref{tab-pregled-major}.
 
-\todo: tabela AND, OR iz majoritetnih
+\begin{figure}
+	\centering
+	\small
+	\begin{tabular}{c|c|c||c c}
+	$s$ & $x$ & $y$ & $z$ \\
+	\hline
+	$0$ & $0$ & $0$ & $0$ & \multirow{4}{*}{$AND(x, y)$} \\
+	$0$ & $0$ & $1$ & $0$ \\
+	$0$ & $1$ & $0$ & $0$ \\
+	$0$ & $1$ & $1$ & $1$ \\
+	\hline
+	$1$ & $0$ & $0$ & $0$ & \multirow{4}{*}{$OR(x, y)$} \\
+	$1$ & $0$ & $1$ & $1$ \\
+	$1$ & $1$ & $0$ & $1$ \\
+	$1$ & $1$ & $1$ & $1$ \\
+	\end{tabular}
+	\caption{Tabela vrednosti izhoda majoritetnih vrat pri različnih vhodnih vrednostih. Majoritetna vrata se glede na $x$ in $y$ pri $s = 0$ obnašajo kot konjunkcija, pri $s = 1$ pa kot disjunkcija.}
+	\label{tab-pregled-major}
+\end{figure}
 
 Tok podatkov v avtomatu usmerjamo s pomočjo urinih con.
 Vsaki celici dodelimo eno izmed štirih urinih con, ki se ciklično izmenjujejo.
 Tako omogočimo logično separacijo delov avtomata in način interakcije med njimi.
-Primer avtomata z ločenimi urinimi conami je prikazan na sliki \todo.
-
-\todo: slika avtomata z različnimi urinimi conami
 
 \subsection{Problematika pomnenja}
 
