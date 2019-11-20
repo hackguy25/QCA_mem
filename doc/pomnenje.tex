@@ -15,10 +15,12 @@
 \begin{document}
 \maketitle
 
+\renewcommand{\figurename}{Slika} % ker Babel ne kooperira iz nekega razloga - more bit tle!
+
 \section{Uvod}
 
 Kvantne celice, osnovni gradniki kvantnih celičnih avtomatov, same po sebi ne omogočajo pomnenja \cite{janez_phd}.
-Podobno kot pri tranzistorjih mora načrtovalec (?) digitalnega vezja sestaviti strukturo iz kvantnih celic, ki pomnenje omogoči.
+Podobno kot pri tranzistorjih mora načrtovalec digitalnega vezja sestaviti strukturo iz kvantnih celic, ki pomnenje omogoči.
 V tem delu bomo predstavili principe pomnenja v kvantnih celičnih avtomatih in nekatere strukture iz kvantnih celic, ki simulirajo delovanje tradicionalnih pomnilnih celic.
 
 
@@ -32,15 +34,25 @@ V tem delu bomo predstavili principe pomnenja v kvantnih celičnih avtomatih in 
 Kvantni celični avtomati predstavljajo izvedbo celičnih avtomatov, v katerih so osnovni gradniki kvantne celice.
 Kvantna celica je konstrukt kvadratne oblike, ki vsebuje štiri okrogle kvantne pike in štiri tunele.
 Vsak tunel povezuje dve sosednji kvantni piki.
-Shema takšne celice je prikazana na sliki \todo.
+Shema takšne celice je prikazana na sliki \ref{img-pregled-single-cell}.
 
-\todo: slika QC tukaj
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.35\textwidth]{../img/pregled/single_cell.pdf}
+	\caption{Shema kvantne celice. Poleg štirih kvantnih pik in tunelov sta prikazana še dva elektrona, ki se nahajata v piki levo zgoraj in v piki desno spodaj.}
+	\label{img-pregled-single-cell}
+\end{figure}
 
 V kvantni celici sta ujeta dva elektrona.
 Vsak od njiju se lahko nahaja v eni izmed štirih kvantnih pik, med katerimi se lahko pomika prek tunelov, ki jih povezujejo.
-Elektrona se zaradi odbojnih sil med njima v odsotnosti zunanjih vplivov postavita v eno izmed dveh stabilnih stanj, prikazanih na sliki \todo.
+Elektrona se zaradi odbojnih sil med njima v odsotnosti zunanjih vplivov postavita v eno izmed dveh stabilnih stanj, prikazanih na sliki \ref{img-pregled-2states}.
 
-\todo: slika dveh stabilnih stanj
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.65\textwidth]{../img/pregled/2states.pdf}
+	\caption{Stabilni stanji kvantne celice. Na levi je prikazano stanje $P = -1$, na desni pa stanje $P = 1$.}
+	\label{img-pregled-2states}
+\end{figure}
 
 Stanje $P = -1$ interpretiramo kot logično vrednost $0$, stanje $P = 1$ pa kot logično vrednost $1$ \cite{lent_1993}.
 Tuneli med pikami so opremljeni s pregradami.
