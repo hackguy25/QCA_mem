@@ -6,6 +6,7 @@
 \usepackage{babelbib}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{multirow}
+\usepackage{subcaption}  % za več slik vzporedno ali vertikalno
 
 \newcommand{\todo}{\textcolor{BrickRed}{\texttt{TODO}}} % za TODOje pisat
 
@@ -162,7 +163,7 @@ Za smiselno uporabo želimo to strukturo prirediti tako, da lahko hranjeno stanj
 Kako to storimo, je stvar implementacije.
 V nadaljevanju bomo predstavili nekaj obstoječih implementacij pomnilnih struktur.
 
-\subsection{Reverzibilno procesiranje (?)}
+%\subsection{Reverzibilno procesiranje (?)}
 
 
 
@@ -171,19 +172,27 @@ Za gradnjo sekvenčnih vezij poleg logičnih vrat potrebujemo tudi pomnilne celi
 
 
 \subsection{Obstoječe implementacije}
-V članku \cite{quantum_dot} iz leta 2003 so predstavljene implementacije štirih osnovnih pomnilnih celic. Vse celice porabijo en urin cikel za procesiranje vhodov. Pri postavitvi celic vir uporablja pravilo čimbolj preprostih oblik urinih con in čimmanj le-teh. Po drugi strani pa so nekatere celice zasukane za kot $ 45^{\circ} $ ali zamaknjene za polovico svoje velikosti, kar lahko negativno vpliva na izvedljivost implementacije. Vir uporablja križanje linij, kar je možno doseči z uporabo alternirajočega vodila (rotiranih celic). \\ Drugi vir \cite{a_novel_approach} iz leta 2018 porabi manj prostora in celic ter ponudi tako izhodno stanje $Q$ kot njegovo negacijo $\bar{Q}$, so pa zato urine cone bolj kompleksne. Po drugi strani ta vir uporablja manj stabilne negatorje kot prvi.
+V članku \cite{quantum_dot} iz leta 2003 so predstavljene implementacije štirih osnovnih pomnilnih celic. Vse celice porabijo en urin cikel za procesiranje vhodov. Pri postavitvi celic vir uporablja pravilo čimbolj preprostih oblik urinih con in čimmanj le-teh. Po drugi strani pa so nekatere celice zasukane za kot $ 45^{\circ} $ ali zamaknjene za polovico svoje velikosti, kar lahko negativno vpliva na izvedljivost implementacije. Vir uporablja križanje linij, kar je možno doseči z uporabo alternirajočega vodila (rotiranih celic). \\
+Vse implementacije pomnilnih celic v viru \cite{a_novel_approach} iz leta 2018 temeljijo na izpeljavah izraza, ki opisuje RS celico. Te implementacije porabijo manj celic ter ponudijo tako izhodno stanje $Q$ kot njegovo negacijo $\bar{Q}$, so pa zato urine cone bolj kompleksne in uporabljeni so manj stabilni negatorji kot v prvem viru.
 
-\subsection{Reverzibilne implementacije (?)}
+%\subsection{Reverzibilne implementacije (?)}
 
 \subsection{Ideje in popravki (?)}
-
+\begin{itemize}
+\item Uporaba večjih razdalj med gradniki
+\item Konsistentna uporaba bolj stabilne negacije
+\end{itemize}
 
 \section{Implementacija}
 V tem poglavju bomo primerjali predlagane implementacije pomnilnih celic.\\
 \todo: primerjaj implementacije: potratnost, izvedljivost, konsistentnost\\
-\todo: vsem slikam dodati naslov in se sklicati v besedilu\\
-\todo: ali štejemo kot negator tudi določene povezave, ki niso standardna negatorja (navaden in dvojni), ampak opravljajo isto funkcijo? --> vir \cite{quantum_dot}
 
+
+
+\todo: vsem slikam (dodati naslov in) se sklicati v besedilu\\
+\todo: ali štejemo kot negator tudi določene povezave, ki niso standardna negatorja (navaden in dvojni), ampak opravljajo isto funkcijo? -- vir \cite{quantum_dot}
+
+\begin{table}
 \begin{tabular}{|c|c|c|c|c|}
 \hline 
 Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Število celic \\ 
@@ -200,41 +209,140 @@ Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Štev
 \multirow{2}{*}{T} & \cite{quantum_dot} & 5 & 4 & 92 \\  
 & \cite{a_novel_approach} & 6 & 2 & 81 \\ 
 \hline 
-\end{tabular} 
+\end{tabular}
+\caption{Primerjava števila gradnikov za sestavo pomnilnih celic.} 
+\label{st-gradnikov}
+\end{table}
 
 \subsection{D pomnilna celica}
-\includegraphics[scale=0.4]{../img/vir_4/d.png} 
-\includegraphics[scale=0.32]{../img/vir_5/d.png} 
+\begin{figure}[h!]
+	\begin{subfigure}[b]{0.4\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_4/d.png}
+	\caption{D pomnilna celica po viru \cite{quantum_dot}}
+	\label{fig-d-1}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.4\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_5/d.png} 
+	\caption{D pomnilna celica po viru \cite{a_novel_approach}}
+	\label{fig-d-2}
+	\end{subfigure}
+	\caption{Implementaciji D pomnilne celice}
+	\label{fig-d}
+\end{figure}
 
 \subsection{JK pomnilna celica}
-\includegraphics[scale=0.5]{../img/vir_4/jk.png} 
-\includegraphics[scale=0.35]{../img/vir_5/jk.png} 
+\begin{figure}[h!]
+	\begin{subfigure}[b]{0.4\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_4/jk.png}
+	\caption{JK pomnilna celica po viru \cite{quantum_dot}}
+	\label{fig-jk-1}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.4\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_5/jk.png} 
+	\caption{JK pomnilna celica po viru \cite{a_novel_approach}}
+	\label{fig-jk-2}
+	\end{subfigure}
+	\caption{Implementaciji JK pomnilne celice}
+	\label{fig-jk}
+\end{figure}
 
 \subsection{RS pomnilna celica}
-\includegraphics[scale=0.5]{../img/vir_4/sr.png} 
-\includegraphics[scale=0.3]{../img/vir_5/rs.png} 
+\begin{figure}[h!]
+	\begin{subfigure}[b]{0.4\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_4/sr.png}
+	\caption{RS pomnilna celica po viru \cite{quantum_dot}}
+	\label{fig-rs-1}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.4\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_5/rs.png} 
+	\caption{RS pomnilna celica po viru \cite{a_novel_approach}}
+	\label{fig-rs-2}
+	\end{subfigure}
+	\caption{Implementaciji RS pomnilne celice}
+	\label{fig-rs}
+\end{figure}
 
 \subsection{T pomnilna celica}
-\includegraphics[scale=0.6]{../img/vir_4/t.png} 
-\includegraphics[scale=0.4]{../img/vir_5/t.png} 
+\begin{figure}[h!]
+	\begin{subfigure}[b]{0.4\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_4/t.png}
+	\caption{T pomnilna celica po viru \cite{quantum_dot}}
+	\label{fig-t-1}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.4\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_5/t.png} 
+	\caption{T pomnilna celica po viru \cite{a_novel_approach}}
+	\label{fig-t-2}
+	\end{subfigure}
+	\caption{Implementaciji T pomnilne celice}
+	\label{fig-t}
+\end{figure}
 
 
 \subsection{Analiza delovanja}
 \subsubsection{D pomnilna celica}
-\includegraphics[scale=0.5]{../img/vir_4/sim_d.png} \\
-\includegraphics[scale=0.5]{../img/vir_5/sim_d.png}
+\begin{figure}[h!]
+	\begin{subfigure}[b]{\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_4/sim_d.png}
+	\caption{Simulacija delovanja D pomnilne celice po viru \cite{quantum_dot}}
+	\label{fig-d-1-sim}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_5/sim_d.png}
+	\caption{Simulacija delovanja D pomnilne celice po viru \cite{a_novel_approach}}
+	\label{fig-d-2-sim}
+	\end{subfigure}
+	\caption{Simulaciji D pomnilne celice}
+	\label{fig-d-sim}
+\end{figure}
 
 \subsubsection{JK pomnilna celica}
-\includegraphics[scale=0.5]{../img/vir_4/sim_jk.png} \\
-\includegraphics[scale=0.5]{../img/vir_5/sim_jk.png}
+\begin{figure}[h!]
+	\begin{subfigure}[b]{\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_4/sim_jk.png}
+	\caption{Simulacija delovanja JK pomnilne celice po viru \cite{quantum_dot}}
+	\label{fig-jk-1-sim}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_5/sim_jk.png}
+	\caption{Simulacija delovanja JK pomnilne celice po viru \cite{a_novel_approach}}
+	\label{fig-jk-2-sim}
+	\end{subfigure}
+	\caption{Simulaciji JK pomnilne celice}
+	\label{fig-jk-sim}
+\end{figure}
 
 \subsubsection{RS pomnilna celica}
-\includegraphics[scale=0.5]{../img/vir_4/sim_sr.png} \\
-\includegraphics[scale=0.5]{../img/vir_5/sim_rs.png}
+\begin{figure}[h!]
+	\begin{subfigure}[b]{\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_4/sim_sr.png}
+	\caption{Simulacija delovanja RS pomnilne celice po viru \cite{quantum_dot}}
+	\label{fig-rs-1-sim}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_5/sim_rs.png}
+	\caption{Simulacija delovanja RS pomnilne celice po viru \cite{a_novel_approach}}
+	\label{fig-rs-2-sim}
+	\end{subfigure}
+	\caption{Simulaciji RS pomnilne celice}
+	\label{fig-rs-sim}
+\end{figure}
 
 \subsubsection{T pomnilna celica}
-\includegraphics[scale=0.5]{../img/vir_4/sim_t.png} \\
-\includegraphics[scale=0.5]{../img/vir_5/sim_t.png} 
+\begin{figure}[h!]
+	\begin{subfigure}[b]{\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_4/sim_t.png}
+	\caption{Simulacija delovanja T pomnilne celice po viru \cite{quantum_dot}}
+	\label{fig-t-1-sim}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+	\includegraphics[width=\textwidth]{../img/vir_5/sim_t.png}
+	\caption{Simulacija delovanja T pomnilne celice po viru \cite{a_novel_approach}}
+	\label{fig-t-2-sim}
+	\end{subfigure}
+	\caption{Simulaciji T pomnilne celice}
+	\label{fig-t-sim}
+\end{figure}
 
 \section{Zaključek}
 \todo: kratek povzetek glavnih ugotovitev + smernice za nadaljnje delo
