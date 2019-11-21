@@ -168,12 +168,15 @@ V nadaljevanju bomo predstavili nekaj obstoječih implementacij pomnilnih strukt
 
 
 \section{Pomnilne celice}
-Za gradnjo sekvenčnih vezij poleg logičnih vrat potrebujemo tudi pomnilne celice. Osnovne pomnilne celice, ki omogočajo hranjenje enega bita informacije, so RS (Reset Set), JK (Jump Kill), T (Trigger) in D (Delay) pomnilna celica. 
+Za gradnjo sekvenčnih vezij poleg logičnih vrat potrebujemo tudi pomnilne celice. Osnovne pomnilne celice, ki omogočajo hranjenje enega bita informacije, so RS (Reset Set), JK (Jump Kill), T (Trigger) in D (Delay) pomnilna celica. \\
+
+Pravilnostne tabele:
 
 
 \subsection{Obstoječe implementacije}
 V članku \cite{quantum_dot} iz leta 2003 so predstavljene implementacije štirih osnovnih pomnilnih celic. Vse celice porabijo en urin cikel za procesiranje vhodov. Pri postavitvi celic vir uporablja pravilo čimbolj preprostih oblik urinih con in čimmanj le-teh. Po drugi strani pa so nekatere celice zasukane za kot $ 45^{\circ} $ ali zamaknjene za polovico svoje velikosti, kar lahko negativno vpliva na izvedljivost implementacije. Vir uporablja križanje linij, kar je možno doseči z uporabo alternirajočega vodila (rotiranih celic). \\
-Vse implementacije pomnilnih celic v viru \cite{a_novel_approach} iz leta 2018 temeljijo na izpeljavah izraza, ki opisuje RS celico. Te implementacije porabijo manj celic ter ponudijo tako izhodno stanje $Q$ kot njegovo negacijo $\bar{Q}$, so pa zato urine cone bolj kompleksne in uporabljeni so manj stabilni negatorji kot v prvem viru.
+
+Vse implementacije pomnilnih celic v viru \cite{a_novel_approach} iz leta 2018 temeljijo na izpeljavah izraza, ki opisuje RS celico. Te implementacije porabijo manj celic ter ponudijo tako izhodno stanje $Q$ kot njegovo negacijo $\bar{Q}$, so pa zato urine cone bolj kompleksne in uporabljeni so manj stabilni negatorji kot v prvem viru. Vse celice se izvedejo v $1.5$ urinega cikla, le D pomnilna celica ima latenco $1.25$ urinega cikla.
 
 %\subsection{Reverzibilne implementacije (?)}
 
@@ -184,15 +187,22 @@ Vse implementacije pomnilnih celic v viru \cite{a_novel_approach} iz leta 2018 t
 \end{itemize}
 
 \section{Implementacija}
-V tem poglavju bomo primerjali predlagane implementacije pomnilnih celic.\\
 \todo: primerjaj implementacije: potratnost, izvedljivost, konsistentnost\\
+V tem poglavju bomo primerjali predlagane implementacije pomnilnih celic.\\
 
+V viru \cite{a_novel_approach} so enačbe posameznih pomnilnih celic izpeljane iz enačb RS celice:
+\begin{equation}
+Qb = \overline{\overline{B \cdot CLK} \cdot Q} = B \cdot CLK + \overline{Q},
+\label{eq-rs-qb}
+\end{equation}
+\begin{equation}
+Q = \overline{\overline{A \cdot CLK} \cdot Qb} = A \cdot CLK + \overline{Qb} = A \cdot CLK + \overline{B \cdot CLK} \cdot Q,
+\label{eq-rs-q}
+\end{equation}
+pri čemer je $Q$ izhod celice, $Qb$ njegova negacija, $A$ in $B$ sta vhoda ter $CLK$ je vhodni urin signal.
 
-
-\todo: vsem slikam (dodati naslov in) se sklicati v besedilu\\
-\todo: ali štejemo kot negator tudi določene povezave, ki niso standardna negatorja (navaden in dvojni), ampak opravljajo isto funkcijo? -- vir \cite{quantum_dot}
-
-\begin{table}
+\begin{table}[h!]
+\tablesize
 \begin{tabular}{|c|c|c|c|c|}
 \hline 
 Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Število celic \\ 
@@ -215,13 +225,15 @@ Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Štev
 \end{table}
 
 \subsection{D pomnilna celica}
+Na sliki \ref{fig-d} vidimo implementaciji D pomnilne celice po obeh virih. Vir \cite{quantum_dot} uporabi križanje linij urinega signala in vhoda $D$ z uporabo alternirajočega vodila zasukanih celic. Vir \cite{a_novel_approach} v enačbah \ref{eq-rs-qb} in \ref{eq-rs-q} zamenja vhoda $A$ in $B$ z $D$ in $\overline{D}$ ter tako dobi enačbo D pomnilne celice.
+
 \begin{figure}[h!]
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_4/d.png}
 	\caption{D pomnilna celica po viru \cite{quantum_dot}}
 	\label{fig-d-1}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_5/d.png} 
 	\caption{D pomnilna celica po viru \cite{a_novel_approach}}
 	\label{fig-d-2}
@@ -231,13 +243,14 @@ Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Štev
 \end{figure}
 
 \subsection{JK pomnilna celica}
+Na sliki \ref{fig-jk} vidimo implementaciji JK celice po obeh virih. Vir \cite{quantum_dot} uporabi alternirajoče vodilo za širjenje urinega signala za bolj stabilen prenos signala naprej, vidimo tudi dva okrepljena negatorja. Da izpelje enačbo JK pomnilne celice, vir \cite{a_novel_approach} strukturi za RS celico doda dve majoritetni vrati.
 \begin{figure}[h!]
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_4/jk.png}
 	\caption{JK pomnilna celica po viru \cite{quantum_dot}}
 	\label{fig-jk-1}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_5/jk.png} 
 	\caption{JK pomnilna celica po viru \cite{a_novel_approach}}
 	\label{fig-jk-2}
@@ -247,13 +260,14 @@ Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Štev
 \end{figure}
 
 \subsection{RS pomnilna celica}
+Na sliki \ref{fig-rs} vidimo implementaciji RS celice po obeh virih. Vir \cite{quantum_dot} kot pri JK celici uporabi alternirajoče vodilo za širjenje urinega signala in en okrepljen negator. Vir \cite{a_novel_approach} v enačbah \ref{eq-rs-qb} in \ref{eq-rs-q} zamenja vhoda $A$ in $B$ s $S$ in $R$ ter tako dobi enačbo RS pomnilne celice.
 \begin{figure}[h!]
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_4/sr.png}
 	\caption{RS pomnilna celica po viru \cite{quantum_dot}}
 	\label{fig-rs-1}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_5/rs.png} 
 	\caption{RS pomnilna celica po viru \cite{a_novel_approach}}
 	\label{fig-rs-2}
@@ -263,13 +277,14 @@ Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Štev
 \end{figure}
 
 \subsection{T pomnilna celica}
+Na sliki \ref{fig-t} vidimo implementaciji T celice po obeh virih. Vir \cite{quantum_dot} spet uporabi alternirajoče vodilo za širjenje urinega signala in dva okrepljena negatorja. Tudi prenosa z alternirajočega vodila prek polovično zamaknjenih celic učinkujeta kot negatorja. Vir \cite{a_novel_approach} pridobi enačbo za T pomnilno celico iz JK pomnilne celice s povezavo vhodov $J$ in $K$.
 \begin{figure}[h!]
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_4/t.png}
 	\caption{T pomnilna celica po viru \cite{quantum_dot}}
 	\label{fig-t-1}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_5/t.png} 
 	\caption{T pomnilna celica po viru \cite{a_novel_approach}}
 	\label{fig-t-2}
@@ -280,7 +295,46 @@ Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Štev
 
 
 \subsection{Analiza delovanja}
+V sledečem poglavju bomo analizirali rezultate simulacij pomnilnih celic in jih primerjali s pričakovanimi pravilnostnimi tabelami.
+
 \subsubsection{D pomnilna celica}
+Pravilnostna tabela D pomnilne celice je predstavljena v tabeli \ref{tab-d}.
+\begin{table}[h!]
+	\centering
+	\small
+	\begin{tabular}{c|c}
+	$d$ & $D^1q$ \\
+	\hline
+	$0$ & $0$ \\
+	$1$ & $1$ \\
+	\end{tabular}
+	\caption{Pravilnostna tabela D pomnilne celice.}
+	\label{tab-d}
+\end{table}
+
+Na sliki \ref{fig-d-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $D$ in urinega signala $Clock$. Že takoj lahko vidimo, da se rezultata simulacij razlikujeta. Iz razbranega lahko sestavimo pravilnostni tabeli \ref{tab-d-sim}.
+\begin{table}[h!]
+	\centering
+	\small
+	\begin{tabular}{cc|cccc|c}
+	\multicolumn{3}{c}{vir \cite{quantum_dot}} & $\quad$ & \multicolumn{3}{c}{vir \cite{a_novel_approach}}\\
+	$D$ & $Clock$ & $Q$ && $D$ & $Clock$ & $Q$ \\
+	\cline{1-3} \cline{5-7}
+	$0$ & $0$ & $0$ && $0$ & $0$ & $1$\\
+	$0$ & $1$ & $0$ && $0$ & $1$ & $0$\\
+	$1$ & $0$ & $0$ && $1$ & $0$ & $0$\\
+	$1$ & $1$ & $1$ && $1$ & $1$ & $0$\\
+	\cline{1-3} \cline{5-7}
+	$0$ & $0$ & $1$ && $0$ & $0$ & $1$\\
+	$0$ & $1$ & $0$ && $0$ & $1$ & $0$\\
+	$1$ & $0$ & $0$ && $1$ & $0$ & $0$\\
+	$1$ & $1$ & $1$ && $1$ & $1$ & $0$\\
+	\end{tabular}
+	\caption{Rezultat simulacije D pomnilne celice.}
+	\label{tab-d-sim}
+\end{table}
+
+
 \begin{figure}[h!]
 	\begin{subfigure}[b]{\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_4/sim_d.png}
@@ -297,6 +351,52 @@ Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Štev
 \end{figure}
 
 \subsubsection{JK pomnilna celica}
+Pravilnostna tabela JK pomnilne celice je predstavljena v tabeli \ref{tab-jk}.
+\begin{table}[h!]
+	\centering
+	\small
+	\begin{tabular}{cc|c}
+	$k$ & $j$ & $D^1q$ \\
+	\hline
+	$0$ & $0$ & $q$ \\
+	$0$ & $1$ & $1$ \\
+	$1$ & $0$ & $0$ \\
+	$1$ & $1$ & $\overline{q}$ \\
+	\end{tabular}
+	\caption{Pravilnostna tabela JK pomnilne celice.}
+	\label{tab-jk}
+\end{table}
+
+Na sliki \ref{fig-jk-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhodov $J$ in $K$ ter urinega signala $Clock$. Iz razbranega lahko sestavimo pravilnostni tabeli \ref{tab-jk-sim}.
+\begin{table}[h!]
+	\centering
+	\small
+	\begin{tabular}{ccc|ccccc|c}
+	\multicolumn{4}{c}{vir \cite{quantum_dot}} & $\quad$ & \multicolumn{4}{c}{vir \cite{a_novel_approach}}\\
+	$J$ & $Clock$ & $K$ & $Q$ && $J$ & $Clock$ & $K$ & $Q$ \\
+	\cline{1-4} \cline{6-9}
+	$0$ & $0$ & $0$ & $1$ && $0$ & $0$ & $0$ & $0$\\
+	$0$ & $0$ & $1$ & $1$ && $0$ & $0$ & $1$ & $0$\\
+	$0$ & $1$ & $0$ & $1$ && $0$ & $1$ & $0$ & $0$\\
+	$0$ & $1$ & $1$ & $1$ && $0$ & $1$ & $1$ & $0$\\
+	$1$ & $0$ & $0$ & $1$ && $1$ & $0$ & $0$ & $0$\\
+	$1$ & $0$ & $1$ & $1$ && $1$ & $0$ & $1$ & $0$\\
+	$1$ & $1$ & $0$ & $1$ && $1$ & $1$ & $0$ & $0$\\
+	$1$ & $1$ & $1$ & $0$ && $1$ & $1$ & $1$ & $1$\\
+	\cline{1-4} \cline{6-9}
+	$0$ & $0$ & $0$ & $1$ && $0$ & $0$ & $0$ & $1$\\
+	$0$ & $0$ & $1$ & $1$ && $0$ & $0$ & $1$ & $0$\\
+	$0$ & $1$ & $0$ & $1$ && $0$ & $1$ & $0$ & $0$\\
+	$0$ & $1$ & $1$ & $1$ && $0$ & $1$ & $1$ & $0$\\
+	$1$ & $0$ & $0$ & $1$ && $1$ & $0$ & $0$ & $0$\\
+	$1$ & $0$ & $1$ & $1$ && $1$ & $0$ & $1$ & $0$\\
+	$1$ & $1$ & $0$ & $1$ && $1$ & $1$ & $0$ & $0$\\
+	$1$ & $1$ & $1$ & $0$ && $1$ & $1$ & $1$ & $1$\\
+	\end{tabular}
+	\caption{Rezultat simulacije JK pomnilne celice.}
+	\label{tab-jk-sim}
+\end{table}
+
 \begin{figure}[h!]
 	\begin{subfigure}[b]{\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_4/sim_jk.png}
@@ -313,6 +413,52 @@ Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Štev
 \end{figure}
 
 \subsubsection{RS pomnilna celica}
+Pravilnostna tabela RS pomnilne celice je predstavljena v tabeli \ref{tab-rs}.
+\begin{table}[h!]
+	\centering
+	\small
+	\begin{tabular}{cc|c}
+	$r$ & $s$ & $D^1q$ \\
+	\hline
+	$0$ & $0$ & $q$ \\
+	$0$ & $1$ & $1$ \\
+	$1$ & $0$ & $0$ \\
+	$1$ & $1$ & $x$ \\
+	\end{tabular}
+	\caption{Pravilnostna tabela RS pomnilne celice.}
+	\label{tab-rs}
+\end{table}
+
+Na sliki \ref{fig-rs-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhodov $R$ in $S$ ter urinega signala $Clock$. Iz razbranega lahko sestavimo pravilnostni tabeli \ref{tab-rs-sim}.
+\begin{table}[h!]
+	\centering
+	\small
+	\begin{tabular}{ccc|ccccc|c}
+	\multicolumn{4}{c}{vir \cite{quantum_dot}} & $\quad$ & \multicolumn{4}{c}{vir \cite{a_novel_approach}}\\
+	$S$ & $Clock$ & $R$ & $Q$ && $S$ & $Clock$ & $R$ & $Q$ \\
+	\cline{1-4} \cline{6-9}
+	$0$ & $0$ & $0$ & $0$ && $0$ & $0$ & $0$ & $1$\\
+	$0$ & $0$ & $1$ & $0$ && $0$ & $0$ & $1$ & $0$\\
+	$0$ & $1$ & $0$ & $0$ && $0$ & $1$ & $0$ & $0$\\
+	$0$ & $1$ & $1$ & $0$ && $0$ & $1$ & $1$ & $0$\\
+	$1$ & $0$ & $0$ & $0$ && $1$ & $0$ & $0$ & $0$\\
+	$1$ & $0$ & $1$ & $0$ && $1$ & $0$ & $1$ & $0$\\
+	$1$ & $1$ & $0$ & $0$ && $1$ & $1$ & $0$ & $0$\\
+	$1$ & $1$ & $1$ & $1$ && $1$ & $1$ & $1$ & $1$\\
+	\cline{1-4} \cline{6-9}
+	$0$ & $0$ & $0$ & $1$ && $0$ & $0$ & $0$ & $1$\\
+	$0$ & $0$ & $1$ & $1$ && $0$ & $0$ & $1$ & $0$\\
+	$0$ & $1$ & $0$ & $1$ && $0$ & $1$ & $0$ & $0$\\
+	$0$ & $1$ & $1$ & $1$ && $0$ & $1$ & $1$ & $0$\\
+	$1$ & $0$ & $0$ & $0$ && $1$ & $0$ & $0$ & $0$\\
+	$1$ & $0$ & $1$ & $0$ && $1$ & $0$ & $1$ & $0$\\
+	$1$ & $1$ & $0$ & $0$ && $1$ & $1$ & $0$ & $0$\\
+	$1$ & $1$ & $1$ & $1$ && $1$ & $1$ & $1$ & $1$\\
+	\end{tabular}
+	\caption{Rezultat simulacije RS pomnilne celice.}
+	\label{tab-rs-sim}
+\end{table}
+
 \begin{figure}[h!]
 	\begin{subfigure}[b]{\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_4/sim_sr.png}
@@ -329,6 +475,43 @@ Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Štev
 \end{figure}
 
 \subsubsection{T pomnilna celica}
+Pravilnostna tabela T pomnilne celice je predstavljena v tabeli \ref{tab-t}.
+\begin{table}[h!]
+	\centering
+	\small
+	\begin{tabular}{c|c}
+	$t$ & $D^1q$ \\
+	\hline
+	$0$ & $q$ \\
+	$1$ & $\overline{q}$ \\
+	\end{tabular}
+	\caption{Pravilnostna tabela T pomnilne celice.}
+	\label{tab-t}
+\end{table}
+
+Na sliki \ref{fig-t-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $T$ in urinega signala $Clock$. Že takoj lahko vidimo, da se rezultata simulacij razlikujeta. Iz razbranega lahko sestavimo pravilnostni tabeli \ref{tab-t-sim}.
+\begin{table}[h!]
+	\centering
+	\small
+	\begin{tabular}{cc|cccc|c}
+	\multicolumn{3}{c}{vir \cite{quantum_dot}} & $\quad$ & \multicolumn{3}{c}{vir \cite{a_novel_approach}}\\
+	$Clock$ & $T$ & $Q$ && $Clock$ & $T$ & $Q$ \\
+	\cline{1-3} \cline{5-7}
+	$0$ & $0$ & $0$ && $0$ & $0$ & $0$\\
+	$0$ & $1$ & $0$ && $0$ & $1$ & $0$\\
+	$1$ & $0$ & $0$ && $1$ & $0$ & $0$\\
+	$1$ & $1$ & $0$ && $1$ & $1$ & $0$\\
+	\cline{1-3} \cline{5-7}
+	$0$ & $0$ & $1$ && $0$ & $0$ & $1$\\
+	$0$ & $1$ & $1$ && $0$ & $1$ & $0$\\
+	$1$ & $0$ & $0$ && $1$ & $0$ & $0$\\
+	$1$ & $1$ & $0$ && $1$ & $1$ & $0$\\
+	\end{tabular}
+	\caption{Rezultat simulacije T pomnilne celice.}
+	\label{tab-t-sim}
+\end{table}
+
+
 \begin{figure}[h!]
 	\begin{subfigure}[b]{\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_4/sim_t.png}
