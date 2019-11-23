@@ -380,11 +380,12 @@ Na sliki \ref{fig-t} vidimo implementaciji T celice po obeh virih. Vir \cite{qua
 
 
 \subsection{Analiza delovanja}
-V sledečem poglavju bomo analizirali rezultate simulacij pomnilnih celic in jih primerjali s pričakovanimi pravilnostnimi tabelami.
+V sledečem poglavju bomo analizirali rezultate simulacij pomnilnih celic in jih primerjali s pričakovanimi pravilnostnimi tabelami. Pri interpretaciji upoštevamo časovne zamike izračunov posameznih celic: vir \cite{quantum_dot} navaja zamik enega urinega cikla, vir \cite{a_novel_approach} pa $1.5$ cikla, razen za D celico $1.25$ urinega cikla.
 
 \subsubsection{D pomnilna celica}
 
-Na sliki \ref{fig-d-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $D$ in urinega signala $Clock$. Že takoj lahko vidimo, da se rezultata simulacij razlikujeta. Iz razbranega lahko sestavimo pravilnostni tabeli na sliki \ref{tab-d-sim}.
+Na sliki \ref{fig-d-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $D$ in urinega signala $Clock$. Iz razbranega lahko sestavimo pravilnostni tabeli na sliki \ref{tab-d-sim}.
+\todo ali je začetni signal v desnem stolpcu ok? mogoče je treba še zamaknit za četrt cikla
 \begin{figure}[h!]
 	\centering
 	\small
@@ -392,20 +393,21 @@ Na sliki \ref{fig-d-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $D$ 
 	\multicolumn{3}{c}{vir \cite{quantum_dot}} & $\quad$ & \multicolumn{3}{c}{vir \cite{a_novel_approach}}\\
 	$D$ & $Clock$ & $Q$ && $D$ & $Clock$ & $Q$ \\
 	\cline{1-3} \cline{5-7}
-	$0$ & $0$ & $0$ && $0$ & $0$ & $1$\\
+	$-$ & $-$ & $0$ && $-$ & $-$ & $1$\\
+	$0$ & $0$ & $0$ && $0$ & $0$ & $0$\\
 	$0$ & $1$ & $0$ && $0$ & $1$ & $0$\\
-	$1$ & $0$ & $0$ && $1$ & $0$ & $0$\\
-	$1$ & $1$ & $1$ && $1$ & $1$ & $0$\\
+	$1$ & $0$ & $1$ && $1$ & $0$ & $0$\\
 	\cline{1-3} \cline{5-7}
-	$0$ & $0$ & $1$ && $0$ & $0$ & $1$\\
+	$1$ & $1$ & $1$ && $1$ & $1$ & $1$\\
+	$0$ & $0$ & $0$ && $0$ & $0$ & $0$\\
 	$0$ & $1$ & $0$ && $0$ & $1$ & $0$\\
-	$1$ & $0$ & $0$ && $1$ & $0$ & $0$\\
-	$1$ & $1$ & $1$ && $1$ & $1$ & $0$\\
+	$1$ & $0$ & $1$ && $1$ & $0$ & $0$\\
 	\end{tabular}
 	\caption{Rezultat simulacije D pomnilne celice.}
 	\label{tab-d-sim}
 \end{figure}
 
+Ob primerjavi rezultatov simulacij D celic opazimo, da se implementacija vira \cite{quantum_dot} obnaša pravilno, druga implementacija pa v primeru $d=1, q=0$ vrne $D^1q=0$, kar ni skladno s pričakovanji.
 
 \begin{figure}[h!]
 	\begin{subfigure}[b]{\textwidth}
@@ -423,21 +425,21 @@ Na sliki \ref{fig-d-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $D$ 
 \end{figure}
 
 \subsubsection{JK pomnilna celica}
-Pravilnostna tabela JK pomnilne celice je predstavljena v tabeli \ref{tab-jk}.
-\begin{table}[h!]
-	\centering
-	\small
-	\begin{tabular}{cc|c}
-	$k$ & $j$ & $D^1q$ \\
-	\hline
-	$0$ & $0$ & $q$ \\
-	$0$ & $1$ & $1$ \\
-	$1$ & $0$ & $0$ \\
-	$1$ & $1$ & $\overline{q}$ \\
-	\end{tabular}
-	\caption{Pravilnostna tabela JK pomnilne celice.}
-	\label{tab-jk}
-\end{table}
+%Pravilnostna tabela JK pomnilne celice je predstavljena v tabeli \ref{tab-jk}.
+%\begin{table}[h!]
+%	\centering
+%	\small
+%	\begin{tabular}{cc|c}
+%	$k$ & $j$ & $D^1q$ \\
+%	\hline
+%	$0$ & $0$ & $q$ \\
+%	$0$ & $1$ & $1$ \\
+%	$1$ & $0$ & $0$ \\
+%	$1$ & $1$ & $\overline{q}$ \\
+%	\end{tabular}
+%	\caption{Pravilnostna tabela JK pomnilne celice.}
+%	\label{tab-jk}
+%\end{table}
 
 Na sliki \ref{fig-jk-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhodov $J$ in $K$ ter urinega signala $Clock$. Iz razbranega lahko sestavimo pravilnostni tabeli \ref{tab-jk-sim}.
 \begin{table}[h!]
@@ -447,27 +449,28 @@ Na sliki \ref{fig-jk-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhodov $J
 	\multicolumn{4}{c}{vir \cite{quantum_dot}} & $\quad$ & \multicolumn{4}{c}{vir \cite{a_novel_approach}}\\
 	$J$ & $Clock$ & $K$ & $Q$ && $J$ & $Clock$ & $K$ & $Q$ \\
 	\cline{1-4} \cline{6-9}
+	$-$ & $-$ & $-$ & $1$ && $-$ & $-$ & $-$ & $0$\\
 	$0$ & $0$ & $0$ & $1$ && $0$ & $0$ & $0$ & $0$\\
-	$0$ & $0$ & $1$ & $1$ && $0$ & $0$ & $1$ & $0$\\
-	$0$ & $1$ & $0$ & $1$ && $0$ & $1$ & $0$ & $0$\\
+	$0$ & $0$ & $1$ & $1$ && $0$ & $0$ & $1$ & $1$\\
+	$0$ & $1$ & $0$ & $1$ && $0$ & $1$ & $0$ & $1$\\
 	$0$ & $1$ & $1$ & $1$ && $0$ & $1$ & $1$ & $0$\\
-	$1$ & $0$ & $0$ & $1$ && $1$ & $0$ & $0$ & $0$\\
+	$1$ & $0$ & $0$ & $0$ && $1$ & $0$ & $0$ & $0$\\
 	$1$ & $0$ & $1$ & $1$ && $1$ & $0$ & $1$ & $0$\\
 	$1$ & $1$ & $0$ & $1$ && $1$ & $1$ & $0$ & $0$\\
-	$1$ & $1$ & $1$ & $0$ && $1$ & $1$ & $1$ & $1$\\
 	\cline{1-4} \cline{6-9}
-	$0$ & $0$ & $0$ & $1$ && $0$ & $0$ & $0$ & $1$\\
-	$0$ & $0$ & $1$ & $1$ && $0$ & $0$ & $1$ & $0$\\
-	$0$ & $1$ & $0$ & $1$ && $0$ & $1$ & $0$ & $0$\\
-	$0$ & $1$ & $1$ & $1$ && $0$ & $1$ & $1$ & $0$\\
-	$1$ & $0$ & $0$ & $1$ && $1$ & $0$ & $0$ & $0$\\
-	$1$ & $0$ & $1$ & $1$ && $1$ & $0$ & $1$ & $0$\\
-	$1$ & $1$ & $0$ & $1$ && $1$ & $1$ & $0$ & $0$\\
-	$1$ & $1$ & $1$ & $0$ && $1$ & $1$ & $1$ & $1$\\
+	$1$ & $1$ & $1$ & $1$ && $1$ & $1$ & $1$ & $0$\\
+	$0$ & $0$ & $0$ & $1$ && $0$ & $0$ & $0$ & $0$\\
+	$0$ & $0$ & $1$ & $1$ && $0$ & $0$ & $1$ & $1$\\
+	$0$ & $1$ & $0$ & $1$ && $0$ & $1$ & $0$ & $-$\\
+	$0$ & $1$ & $1$ & $1$ && $0$ & $1$ & $1$ & $-$\\
+	$1$ & $0$ & $0$ & $1$ && $1$ & $0$ & $0$ & $-$\\
+	$1$ & $0$ & $1$ & $0$ && $1$ & $0$ & $1$ & $-$\\
 	\end{tabular}
 	\caption{Rezultat simulacije JK pomnilne celice.}
 	\label{tab-jk-sim}
 \end{table}
+
+Če primerjamo rezultate simulacij D celic opazimo, da implementacija vira \cite{quantum_dot} ob vhodu $j=1,k=0,d=1$ včasih vrne $1$ namesto $0$, vhod $j=1,k=1,d=1$ pa vrne $1$. Drugi vir pri $j=0,k=1,D=1$ in pri $j=1, k=1, d=0$ vrne $0$.
 
 \begin{figure}[h!]
 	\begin{subfigure}[b]{\textwidth}
@@ -485,22 +488,22 @@ Na sliki \ref{fig-jk-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhodov $J
 \end{figure}
 
 \subsubsection{RS pomnilna celica}
-Pravilnostna tabela RS pomnilne celice je predstavljena v tabeli \ref{tab-rs}.
-\begin{table}[h!]
-	\centering
-	\small
-	\begin{tabular}{cc|c}
-	$r$ & $s$ & $D^1q$ \\
-	\hline
-	$0$ & $0$ & $q$ \\
-	$0$ & $1$ & $1$ \\
-	$1$ & $0$ & $0$ \\
-	$1$ & $1$ & $x$ \\
-	\end{tabular}
-	\caption{Pravilnostna tabela RS pomnilne celice.}
-	\label{tab-rs}
-\end{table}
-
+%Pravilnostna tabela RS pomnilne celice je predstavljena v tabeli \ref{tab-rs}.
+%\begin{table}[h!]
+%	\centering
+%	\small
+%	\begin{tabular}{cc|c}
+%	$r$ & $s$ & $D^1q$ \\
+%	\hline
+%	$0$ & $0$ & $q$ \\
+%	$0$ & $1$ & $1$ \\
+%	$1$ & $0$ & $0$ \\
+%	$1$ & $1$ & $x$ \\
+%	\end{tabular}
+%	\caption{Pravilnostna tabela RS pomnilne celice.}
+%	\label{tab-rs}
+%\end{table}
+\todo ali je cikel in pol v redu prebran pri desnem stolpcu?
 Na sliki \ref{fig-rs-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhodov $R$ in $S$ ter urinega signala $Clock$. Iz razbranega lahko sestavimo pravilnostni tabeli \ref{tab-rs-sim}.
 \begin{table}[h!]
 	\centering
@@ -509,27 +512,29 @@ Na sliki \ref{fig-rs-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhodov $R
 	\multicolumn{4}{c}{vir \cite{quantum_dot}} & $\quad$ & \multicolumn{4}{c}{vir \cite{a_novel_approach}}\\
 	$S$ & $Clock$ & $R$ & $Q$ && $S$ & $Clock$ & $R$ & $Q$ \\
 	\cline{1-4} \cline{6-9}
-	$0$ & $0$ & $0$ & $0$ && $0$ & $0$ & $0$ & $1$\\
+	$-$ & $-$ & $-$ & $0$ && $-$ & $-$ & $-$ & $1$\\
+	$0$ & $0$ & $0$ & $0$ && $0$ & $0$ & $0$ & $0$\\
 	$0$ & $0$ & $1$ & $0$ && $0$ & $0$ & $1$ & $0$\\
-	$0$ & $1$ & $0$ & $0$ && $0$ & $1$ & $0$ & $0$\\
-	$0$ & $1$ & $1$ & $0$ && $0$ & $1$ & $1$ & $0$\\
-	$1$ & $0$ & $0$ & $0$ && $1$ & $0$ & $0$ & $0$\\
-	$1$ & $0$ & $1$ & $0$ && $1$ & $0$ & $1$ & $0$\\
-	$1$ & $1$ & $0$ & $0$ && $1$ & $1$ & $0$ & $0$\\
-	$1$ & $1$ & $1$ & $1$ && $1$ & $1$ & $1$ & $1$\\
+	$0$ & $1$ & $0$ & $0$ && $0$ & $1$ & $0$ & $1$\\
+	$0$ & $1$ & $1$ & $1$ && $0$ & $1$ & $1$ & $1$\\
+	$1$ & $0$ & $0$ & $1$ && $1$ & $0$ & $0$ & $0$\\
+	$1$ & $0$ & $1$ & $1$ && $1$ & $0$ & $1$ & $0$\\
+	$1$ & $1$ & $0$ & $1$ && $1$ & $1$ & $0$ & $0$\\
+	$1$ & $1$ & $1$ & $1$ && $1$ & $1$ & $1$ & $0$\\
 	\cline{1-4} \cline{6-9}
-	$0$ & $0$ & $0$ & $1$ && $0$ & $0$ & $0$ & $1$\\
-	$0$ & $0$ & $1$ & $1$ && $0$ & $0$ & $1$ & $0$\\
-	$0$ & $1$ & $0$ & $1$ && $0$ & $1$ & $0$ & $0$\\
-	$0$ & $1$ & $1$ & $1$ && $0$ & $1$ & $1$ & $0$\\
-	$1$ & $0$ & $0$ & $0$ && $1$ & $0$ & $0$ & $0$\\
-	$1$ & $0$ & $1$ & $0$ && $1$ & $0$ & $1$ & $0$\\
-	$1$ & $1$ & $0$ & $0$ && $1$ & $1$ & $0$ & $0$\\
-	$1$ & $1$ & $1$ & $1$ && $1$ & $1$ & $1$ & $1$\\
+	$0$ & $0$ & $0$ & $0$ && $0$ & $0$ & $0$ & $0$\\
+	$0$ & $0$ & $1$ & $0$ && $0$ & $0$ & $1$ & $0$\\
+	$0$ & $1$ & $0$ & $0$ && $0$ & $1$ & $0$ & $1$\\
+	$0$ & $1$ & $1$ & $1$ && $0$ & $1$ & $1$ & $-$\\
+	$1$ & $0$ & $0$ & $-$ && $1$ & $0$ & $0$ & $-$\\
+	$1$ & $0$ & $1$ & $-$ && $1$ & $0$ & $1$ & $-$\\
+	$1$ & $1$ & $0$ & $-$ && $1$ & $1$ & $0$ & $-$\\
 	\end{tabular}
 	\caption{Rezultat simulacije RS pomnilne celice.}
 	\label{tab-rs-sim}
 \end{table}
+
+Simulacija RS celice po viru \cite{quantum_dot} $r=1,s=0,q=0$ in $r=0,s=0,q=1$ vrne napačen rezultat, implementacija po \cite{a_novel_approach} pa ima napačen rezultat pri  $r=1,s=0,q=0$ in  $r=0,s=0,q=0$.
 
 \begin{figure}[h!]
 	\begin{subfigure}[b]{\textwidth}
@@ -547,19 +552,19 @@ Na sliki \ref{fig-rs-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhodov $R
 \end{figure}
 
 \subsubsection{T pomnilna celica}
-Pravilnostna tabela T pomnilne celice je predstavljena v tabeli \ref{tab-t}.
-\begin{table}[h!]
-	\centering
-	\small
-	\begin{tabular}{c|c}
-	$t$ & $D^1q$ \\
-	\hline
-	$0$ & $q$ \\
-	$1$ & $\overline{q}$ \\
-	\end{tabular}
-	\caption{Pravilnostna tabela T pomnilne celice.}
-	\label{tab-t}
-\end{table}
+%Pravilnostna tabela T pomnilne celice je predstavljena v tabeli \ref{tab-t}.
+%\begin{table}[h!]
+%	\centering
+%	\small
+%	\begin{tabular}{c|c}
+%	$t$ & $D^1q$ \\
+%	\hline
+%	$0$ & $q$ \\
+%	$1$ & $\overline{q}$ \\
+%	\end{tabular}
+%	\caption{Pravilnostna tabela T pomnilne celice.}
+%	\label{tab-t}
+%\end{table}
 
 Na sliki \ref{fig-t-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $T$ in urinega signala $Clock$. Že takoj lahko vidimo, da se rezultata simulacij razlikujeta. Iz razbranega lahko sestavimo pravilnostni tabeli \ref{tab-t-sim}.
 \begin{table}[h!]
@@ -569,20 +574,21 @@ Na sliki \ref{fig-t-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $T$ 
 	\multicolumn{3}{c}{vir \cite{quantum_dot}} & $\quad$ & \multicolumn{3}{c}{vir \cite{a_novel_approach}}\\
 	$Clock$ & $T$ & $Q$ && $Clock$ & $T$ & $Q$ \\
 	\cline{1-3} \cline{5-7}
-	$0$ & $0$ & $0$ && $0$ & $0$ & $0$\\
-	$0$ & $1$ & $0$ && $0$ & $1$ & $0$\\
-	$1$ & $0$ & $0$ && $1$ & $0$ & $0$\\
-	$1$ & $1$ & $0$ && $1$ & $1$ & $0$\\
-	\cline{1-3} \cline{5-7}
-	$0$ & $0$ & $1$ && $0$ & $0$ & $1$\\
+	$-$ & $-$ & $0$ && $-$ & $-$ & $1$\\
+	$0$ & $0$ & $0$ && $0$ & $0$ & $1$\\
 	$0$ & $1$ & $1$ && $0$ & $1$ & $0$\\
-	$1$ & $0$ & $0$ && $1$ & $0$ & $0$\\
+	$1$ & $0$ & $1$ && $1$ & $0$ & $0$\\
+	\cline{1-3} \cline{5-7}
 	$1$ & $1$ & $0$ && $1$ & $1$ & $0$\\
+	$0$ & $0$ & $0$ && $0$ & $0$ & $-$\\
+	$0$ & $1$ & $-$ && $0$ & $1$ & $-$\\
+	$1$ & $0$ & $-$ && $1$ & $0$ & $-$\\
 	\end{tabular}
 	\caption{Rezultat simulacije T pomnilne celice.}
 	\label{tab-t-sim}
 \end{table}
 
+Implementacija T pomnilne celice po viru \cite{quantum_dot} deluje pravilno. Druga implementacija pri $t=1,q=0$ vrne $0$ namesto $1$.
 
 \begin{figure}[h!]
 	\begin{subfigure}[b]{\textwidth}
