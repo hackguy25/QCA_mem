@@ -74,7 +74,7 @@ S pravilno postavitvijo celic lahko dosežemo, da se avtomat obnaša kot tradici
 
 Gradnjo kompleksnejših struktur pričnemo z osnovnimi gradniki.
 Osnovni gradniki predstavljajo poln funkcijski nabor, s katerim lahko implementiramo poljubno preklopno funkcijo.
-Najenostavnejši gradnik je vodilo, prikazano na sliki \ref{img-pregled-bus}.
+Najenostavnejši gradnik je vodilo, prikazano na sliki \ref{img-pregled-bus}. \\*
 
 \begin{figure}[h]
 	\centering
@@ -147,30 +147,108 @@ Tako kvantnih celic samih ne moremo uporabiti za hrambo podatkov.
 Uvedba ure omogoča, da kvantne celice spravimo v zaklenjeno stanje, v katerem prehajanje elektronov med pikami ni mogoče, kar pomeni, da je stanje zaklenjene kvantne celice deterministično.
 Za pomnenje potrebujemo še način za nadzor stanja, ki naj ga zaklenjena celica zavzame.
 To lahko dosežemo z veriženjem celic, ki ne pripadajo isti urini coni.
-Takšna veriga je prikazana na sliki \todo.
+Takšna veriga je prikazana na sliki \ref{img-pregled-seq-linear}.
 
-\todo: slika verige s sekvenčnimi urinimi conami
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\textwidth]{../img/pregled/seq_linear.pdf}
+	\caption{Veriga kvantnih celic s sekvenčnimi urinimi conami. Različne barve celic, ki niso vhodne ali izhodne, označujejo različne urine cone.}
+	\label{img-pregled-seq-linear}
+\end{figure}
 
-Za samostojno pomnenje to verigo sklenemo v obroč, prikazan na sliki \todo.
-
-\todo: slika obroča s sekvenčnimi urinimi conami
-
-V obroču se stanje med potekom urinega cikla ohranja, kot je prikazano na sliki \todo.
-
-\todo: shema / tabela s stanji v obroču med urinim ciklom (simulacija v QCA Designer)
-
+Za samostojno pomnenje to verigo sklenemo v obroč, prikazan na sliki \ref{img-pregled-seq-circ}.
+V obroču se stanje med potekom urinega cikla ohranja.
 Za smiselno uporabo želimo to strukturo prirediti tako, da lahko hranjeno stanje poljubno nastavljamo.
 Kako to storimo, je stvar implementacije.
 V nadaljevanju bomo predstavili nekaj obstoječih implementacij pomnilnih struktur.
 
-%\subsection{Reverzibilno procesiranje (?)}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.40\textwidth]{../img/pregled/seq_circ.pdf}
+	\caption{Obroč kvantnih celic s sekvenčnimi urinimi conami. Tak obroč sam po sebi ni uporaben, saj ne vsebuje vhodnih in izhodnih celic.}
+	\label{img-pregled-seq-circ}
+\end{figure}
 
 
 
 \section{Pomnilne celice}
-Za gradnjo sekvenčnih vezij poleg logičnih vrat potrebujemo tudi pomnilne celice. Osnovne pomnilne celice, ki omogočajo hranjenje enega bita informacije, so RS (Reset Set), JK (Jump Kill), T (Trigger) in D (Delay) pomnilna celica. \\
+Za gradnjo sekvenčnih vezij poleg logičnih vrat potrebujemo tudi pomnilne celice.
+Osnovne pomnilne celice, ki omogočajo hranjenje enega bita informacije, so RS (Reset Set), JK (Jump Kill), T (Trigger) in D (Delay) pomnilna celica.
+Delovanje pomnilnih celic je podano v tabelah na sliki \ref{tab-cells-table}.
 
-Pravilnostne tabele:
+\begin{figure}[h]
+	\centering
+	\tablesize
+	\begin{tabular}{cccc}
+		
+		\begin{tabular}{c|c|c||c}
+		$r$ & $s$ & $q$ & $D^1q$ \\
+		\hline
+		\hline
+		$0$ & $0$ & $0$ & $0$ \\
+		$0$ & $0$ & $1$ & $1$ \\
+		\hline
+		$0$ & $1$ & $0$ & $1$ \\
+		$0$ & $1$ & $1$ & $1$ \\
+		\hline
+		$1$ & $0$ & $0$ & $0$ \\
+		$1$ & $0$ & $1$ & $0$ \\
+		\hline
+		$1$ & $1$ & $0$ & \textcolor{Red}{$\times$} \\
+		$1$ & $1$ & $1$ & \textcolor{Red}{$\times$} \\
+		\end{tabular}
+		
+		&
+		
+		\begin{tabular}{c|c|c||c}
+		$j$ & $k$ & $q$ & $D^1q$ \\
+		\hline
+		\hline
+		$0$ & $0$ & $0$ & $0$ \\
+		$0$ & $0$ & $1$ & $1$ \\
+		\hline
+		$0$ & $1$ & $0$ & $1$ \\
+		$0$ & $1$ & $1$ & $1$ \\
+		\hline
+		$1$ & $0$ & $0$ & $0$ \\
+		$1$ & $0$ & $1$ & $0$ \\
+		\hline
+		$1$ & $1$ & $0$ & $1$ \\
+		$1$ & $1$ & $1$ & $0$ \\
+		\end{tabular}
+		
+		&
+		
+		\begin{tabular}{c|c||c}
+		$t$ & $q$ & $D^1q$ \\
+		\hline
+		\hline
+		$0$ & $0$ & $0$ \\
+		$0$ & $1$ & $1$ \\
+		\hline
+		$1$ & $0$ & $1$ \\
+		$1$ & $1$ & $0$ \\
+		\end{tabular}
+		
+		&
+		
+		\begin{tabular}{c|c||c}
+		$d$ & $q$ & $D^1q$ \\
+		\hline
+		\hline
+		$0$ & $0$ & $0$ \\
+		$0$ & $1$ & $0$ \\
+		\hline
+		$1$ & $0$ & $1$ \\
+		$1$ & $1$ & $1$ \\
+		\end{tabular}
+		
+		\\ \\
+		RS celica & JK celica & T celica & D celica \\
+	\end{tabular}
+	\caption{Pravilnostne tabele pomnilniških celic. \textcolor{Red}{$\times$} predstavlja nedovoljeno stanje.}
+	\label{tab-cells-table}
+\end{figure}
 
 
 \subsection{Obstoječe implementacije}
@@ -181,6 +259,7 @@ Vse implementacije pomnilnih celic v viru \cite{a_novel_approach} iz leta 2018 t
 %\subsection{Reverzibilne implementacije (?)}
 
 \subsection{Ideje in popravki (?)}
+\todo: sploh damo to?
 \begin{itemize}
 \item Uporaba večjih razdalj med gradniki
 \item Konsistentna uporaba bolj stabilne negacije
