@@ -34,8 +34,6 @@ V tem delu bomo predstavili principe pomnenja v kvantnih celičnih avtomatih in 
 
 \subsection{Kvantni celični avtomati}
 
-\todo: kaka citacija? šel sem po Janežu + Mrazu
-
 Kvantni celični avtomati predstavljajo izvedbo celičnih avtomatov, v katerih so osnovni gradniki kvantne celice.
 Kvantna celica je konstrukt kvadratne oblike, ki vsebuje štiri okrogle kvantne pike in štiri tunele.
 Vsak tunel povezuje dve sosednji kvantni piki.
@@ -99,7 +97,7 @@ Primer take uporabe je prikazan na sliki \ref{img-pregled-negbus}.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.45\textwidth]{../img/pregled/negbus.pdf}
+	\includegraphics[width=0.55\textwidth]{../img/pregled/negbus.pdf}
 	\caption{Vodilo iz negatorjev. Signal potuje od vhoda $x$ do izhoda $y$. Pri tem je negiran $2k$-krat, zato se logična vrednost ne spremeni.}
 	\label{img-pregled-negbus}
 \end{figure}
@@ -121,6 +119,7 @@ Z vezavo konstante na enega izmed vhodov majoritetnih vrat dobimo gradnik, ki pr
 	\small
 	\begin{tabular}{c|c|c||c c}
 	$s$ & $x$ & $y$ & $z$ \\
+	\hline
 	\hline
 	$0$ & $0$ & $0$ & $0$ & \multirow{4}{*}{$AND(x, y)$} \\
 	$0$ & $0$ & $1$ & $0$ \\
@@ -258,17 +257,18 @@ Vse implementacije pomnilnih celic v viru \cite{a_novel_approach} iz leta 2018 t
 
 %\subsection{Reverzibilne implementacije (?)}
 
-\subsection{Ideje in popravki (?)}
-\todo: sploh damo to?
-\begin{itemize}
-\item Uporaba večjih razdalj med gradniki
-\item Konsistentna uporaba bolj stabilne negacije
-\end{itemize}
+%\subsection{Ideje in popravki (?)}
+%\todo: sploh damo to?
+%\begin{itemize}
+%\item Uporaba večjih razdalj med gradniki
+%\item Konsistentna uporaba bolj stabilne negacije
+%\end{itemize}
 
 \section{Implementacija}
-\todo: primerjaj implementacije: potratnost, izvedljivost, konsistentnost\\
-V tem poglavju bomo primerjali predlagane implementacije pomnilnih celic.\\
 
+\todo: primerjaj implementacije: potratnost, izvedljivost, konsistentnost\\
+
+V tem poglavju bomo primerjali predlagane implementacije pomnilnih celic.
 V viru \cite{a_novel_approach} so enačbe posameznih pomnilnih celic izpeljane iz enačb RS celice:
 \begin{equation}
 Qb = \overline{\overline{B \cdot CLK} \cdot Q} = B \cdot CLK + \overline{Q},
@@ -279,9 +279,11 @@ Q = \overline{\overline{A \cdot CLK} \cdot Qb} = A \cdot CLK + \overline{Qb} = A
 \label{eq-rs-q}
 \end{equation}
 pri čemer je $Q$ izhod celice, $Qb$ njegova negacija, $A$ in $B$ sta vhoda ter $CLK$ je vhodni urin signal.
+V tabeli na sliki \ref{st-gradnikov} je primerjava števila osnovnih gradnikov v implementacijah pomnilnih celic v \cite{a_novel_approach} in \cite{quantum_dot}.
 
-\begin{table}[h!]
+\begin{figure}[h!]
 \tablesize
+\centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline 
 Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Število celic \\ 
@@ -301,18 +303,19 @@ Pomnilna celica & Vir & Število majoritetnih vrat & Število negatorjev & Štev
 \end{tabular}
 \caption{Primerjava števila gradnikov za sestavo pomnilnih celic.} 
 \label{st-gradnikov}
-\end{table}
+\end{figure}
 
 \subsection{D pomnilna celica}
 Na sliki \ref{fig-d} vidimo implementaciji D pomnilne celice po obeh virih. Vir \cite{quantum_dot} uporabi križanje linij urinega signala in vhoda $D$ z uporabo alternirajočega vodila zasukanih celic. Vir \cite{a_novel_approach} v enačbah \ref{eq-rs-qb} in \ref{eq-rs-q} zamenja vhoda $A$ in $B$ z $D$ in $\overline{D}$ ter tako dobi enačbo D pomnilne celice.
 
 \begin{figure}[h!]
-	\begin{subfigure}[b]{0.5\textwidth}
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_4/d.png}
 	\caption{D pomnilna celica po viru \cite{quantum_dot}}
 	\label{fig-d-1}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.5\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_5/d.png} 
 	\caption{D pomnilna celica po viru \cite{a_novel_approach}}
 	\label{fig-d-2}
@@ -324,12 +327,13 @@ Na sliki \ref{fig-d} vidimo implementaciji D pomnilne celice po obeh virih. Vir 
 \subsection{JK pomnilna celica}
 Na sliki \ref{fig-jk} vidimo implementaciji JK celice po obeh virih. Vir \cite{quantum_dot} uporabi alternirajoče vodilo za širjenje urinega signala za bolj stabilen prenos signala naprej, vidimo tudi dva okrepljena negatorja. Da izpelje enačbo JK pomnilne celice, vir \cite{a_novel_approach} strukturi za RS celico doda dve majoritetni vrati.
 \begin{figure}[h!]
-	\begin{subfigure}[b]{0.5\textwidth}
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_4/jk.png}
 	\caption{JK pomnilna celica po viru \cite{quantum_dot}}
 	\label{fig-jk-1}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.5\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_5/jk.png} 
 	\caption{JK pomnilna celica po viru \cite{a_novel_approach}}
 	\label{fig-jk-2}
@@ -341,12 +345,13 @@ Na sliki \ref{fig-jk} vidimo implementaciji JK celice po obeh virih. Vir \cite{q
 \subsection{RS pomnilna celica}
 Na sliki \ref{fig-rs} vidimo implementaciji RS celice po obeh virih. Vir \cite{quantum_dot} kot pri JK celici uporabi alternirajoče vodilo za širjenje urinega signala in en okrepljen negator. Vir \cite{a_novel_approach} v enačbah \ref{eq-rs-qb} in \ref{eq-rs-q} zamenja vhoda $A$ in $B$ s $S$ in $R$ ter tako dobi enačbo RS pomnilne celice.
 \begin{figure}[h!]
-	\begin{subfigure}[b]{0.5\textwidth}
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_4/sr.png}
 	\caption{RS pomnilna celica po viru \cite{quantum_dot}}
 	\label{fig-rs-1}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.5\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_5/rs.png} 
 	\caption{RS pomnilna celica po viru \cite{a_novel_approach}}
 	\label{fig-rs-2}
@@ -358,12 +363,13 @@ Na sliki \ref{fig-rs} vidimo implementaciji RS celice po obeh virih. Vir \cite{q
 \subsection{T pomnilna celica}
 Na sliki \ref{fig-t} vidimo implementaciji T celice po obeh virih. Vir \cite{quantum_dot} spet uporabi alternirajoče vodilo za širjenje urinega signala in dva okrepljena negatorja. Tudi prenosa z alternirajočega vodila prek polovično zamaknjenih celic učinkujeta kot negatorja. Vir \cite{a_novel_approach} pridobi enačbo za T pomnilno celico iz JK pomnilne celice s povezavo vhodov $J$ in $K$.
 \begin{figure}[h!]
-	\begin{subfigure}[b]{0.5\textwidth}
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_4/t.png}
 	\caption{T pomnilna celica po viru \cite{quantum_dot}}
 	\label{fig-t-1}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.5\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 	\includegraphics[width=\textwidth]{../img/vir_5/t.png} 
 	\caption{T pomnilna celica po viru \cite{a_novel_approach}}
 	\label{fig-t-2}
@@ -377,22 +383,9 @@ Na sliki \ref{fig-t} vidimo implementaciji T celice po obeh virih. Vir \cite{qua
 V sledečem poglavju bomo analizirali rezultate simulacij pomnilnih celic in jih primerjali s pričakovanimi pravilnostnimi tabelami.
 
 \subsubsection{D pomnilna celica}
-Pravilnostna tabela D pomnilne celice je predstavljena v tabeli \ref{tab-d}.
-\begin{table}[h!]
-	\centering
-	\small
-	\begin{tabular}{c|c}
-	$d$ & $D^1q$ \\
-	\hline
-	$0$ & $0$ \\
-	$1$ & $1$ \\
-	\end{tabular}
-	\caption{Pravilnostna tabela D pomnilne celice.}
-	\label{tab-d}
-\end{table}
 
-Na sliki \ref{fig-d-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $D$ in urinega signala $Clock$. Že takoj lahko vidimo, da se rezultata simulacij razlikujeta. Iz razbranega lahko sestavimo pravilnostni tabeli \ref{tab-d-sim}.
-\begin{table}[h!]
+Na sliki \ref{fig-d-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $D$ in urinega signala $Clock$. Že takoj lahko vidimo, da se rezultata simulacij razlikujeta. Iz razbranega lahko sestavimo pravilnostni tabeli na sliki \ref{tab-d-sim}.
+\begin{figure}[h!]
 	\centering
 	\small
 	\begin{tabular}{cc|cccc|c}
@@ -411,7 +404,7 @@ Na sliki \ref{fig-d-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $D$ 
 	\end{tabular}
 	\caption{Rezultat simulacije D pomnilne celice.}
 	\label{tab-d-sim}
-\end{table}
+\end{figure}
 
 
 \begin{figure}[h!]
