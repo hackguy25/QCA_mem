@@ -171,6 +171,7 @@ V nadaljevanju bomo predstavili nekaj obstoječih implementacij pomnilnih strukt
 
 
 \section{Pomnilne celice}
+
 Za gradnjo sekvenčnih vezij poleg logičnih vrat potrebujemo tudi pomnilne celice.
 Osnovne pomnilne celice, ki omogočajo hranjenje enega bita informacije, so RS (Reset Set), JK (Jump Kill), T (Trigger) in D (Delay) pomnilna celica.
 Delovanje pomnilnih celic je podano v tabelah na sliki \ref{tab-cells-table}.
@@ -251,12 +252,15 @@ Delovanje pomnilnih celic je podano v tabelah na sliki \ref{tab-cells-table}.
 
 
 \subsection{Obstoječe implementacije}
+
 V članku \cite{quantum_dot} iz leta 2003 so predstavljene implementacije štirih osnovnih pomnilnih celic. Vse celice porabijo en urin cikel za procesiranje vhodov. Pri postavitvi celic vir uporablja pravilo čimbolj preprostih oblik urinih con in čimmanj le-teh. Po drugi strani pa so nekatere celice zasukane za kot $ 45^{\circ} $ ali zamaknjene za polovico svoje velikosti, kar lahko negativno vpliva na izvedljivost implementacije. Vir uporablja križanje linij, kar je možno doseči z uporabo alternirajočega vodila (rotiranih celic). \\
 
 Vse implementacije pomnilnih celic v viru \cite{a_novel_approach} iz leta 2018 temeljijo na izpeljavah izraza, ki opisuje RS celico. Te implementacije porabijo manj celic ter ponudijo tako izhodno stanje $Q$ kot njegovo negacijo $\bar{Q}$, so pa zato urine cone bolj kompleksne in uporabljeni so manj stabilni negatorji kot v prvem viru. Vse celice se izvedejo v $1.5$ urinega cikla, le D pomnilna celica ima latenco $1.25$ urinega cikla.
 
 
+
 \section{Implementacija}
+
 V tem poglavju bomo primerjali predlagane implementacije pomnilnih celic.
 V viru \cite{a_novel_approach} so enačbe posameznih pomnilnih celic izpeljane iz enačb RS celice:
 \begin{equation}
