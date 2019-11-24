@@ -63,7 +63,7 @@ Elektrona lahko prosto prehajata med pikami, dokler pregrade niso vzpostavljene.
 Vzpostavitev pregrad prehajanje elektronov onemogoči, kar nam omogoča, da stanje celice odčitamo.
 Take celice označujemo kot izhodne.
 Celico lahko tudi prisilimo, da zasede določeno stanje.
-Take celice označujemo kot vhodne.
+Take celice označu\-je\-mo kot vhodne.
 
 Kvantni celični avtomat je konstrukt, ki vsebuje eno ali več kvantnih celic, ki zaradi medsebojne bližine interaktirajo druga z drugo.
 Sile med elektroni težijo k vzpostavitvi stanja z najmanjšo skupno energijo.
@@ -106,7 +106,7 @@ Zadnji osnovni gradnik so večinska oz.~majoritetna vrata, prikazana na sliki \r
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.55\textwidth]{../img/pregled/major.pdf}
+	\includegraphics[width=0.50\textwidth]{../img/pregled/major.pdf}
 	\caption{Majoritetna vrata. Izhod $z$ zavzame večinsko vrednost na vhodih $s$, $x$ in $y$.}
 	\label{img-pregled-major}
 \end{figure}
@@ -319,6 +319,7 @@ Na sliki \ref{fig-d} vidimo implementaciji D pomnilne celice po obeh virih. Vir 
 
 \subsection{JK pomnilna celica}
 Na sliki \ref{fig-jk} vidimo implementaciji JK celice po obeh virih. Vir \cite{quantum_dot} uporabi alternirajoče vodilo za širjenje urinega signala za bolj stabilen prenos signala naprej, vidimo tudi dva okrepljena negatorja. Da izpelje enačbo JK pomnilne celice, vir \cite{a_novel_approach} strukturi za RS celico doda dve majoritetni vrati.
+
 \begin{figure}[h!]
 	\centering
 	\begin{subfigure}[b]{0.4\textwidth}
@@ -337,6 +338,7 @@ Na sliki \ref{fig-jk} vidimo implementaciji JK celice po obeh virih. Vir \cite{q
 
 \subsection{RS pomnilna celica}
 Na sliki \ref{fig-rs} vidimo implementaciji RS celice po obeh virih. Vir \cite{quantum_dot} kot pri JK celici uporabi alternirajoče vodilo za širjenje urinega signala in en okrepljen negator. Vir \cite{a_novel_approach} v enačbah \ref{eq-rs-qb} in \ref{eq-rs-q} zamenja vhoda $A$ in $B$ s $S$ in $R$ ter tako dobi enačbo RS pomnilne celice.
+
 \begin{figure}[h!]
 	\centering
 	\begin{subfigure}[b]{0.4\textwidth}
@@ -373,9 +375,8 @@ Na sliki \ref{fig-t} vidimo implementaciji T celice po obeh virih. Vir \cite{qua
 
 
 \subsection{Analiza delovanja}
-\todo: implementacijam spremeniti opis pravilnosti simulacije\\
+
 V sledečem poglavju bomo analizirali rezultate simulacij pomnilnih celic in jih primerjali s pričakovanimi pravilnostnimi tabelami.\\
-%Pri interpretaciji upoštevamo časovne zamike izračunov posameznih celic: vir \cite{quantum_dot} %navaja zamik enega urinega cikla, vir \cite{a_novel_approach} pa $1.5$ cikla, razen za D celico %$1.25$ urinega cikla.
 
 \subsubsection{D pomnilna celica}
 Na sliki \ref{fig-d-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $D$ in urinega signala $Clock$.
@@ -400,7 +401,7 @@ Ob primerjavi rezultatov simulacij D celic opazimo, da se implementacija vira \c
 \subsubsection{JK pomnilna celica}
 Na sliki \ref{fig-jk-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhodov $J$ in $K$ ter urinega signala $Clock$.
 Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1.25$ urinega cikla, implementacija po viru \cite{a_novel_approach} pa $1.5$ urinega cikla.\\
-Implementaciji JK celice po obeh virih delujeta pravilno.
+Implementaciji JK celice po obeh virih delujeta pravilno.\\*
 
 \begin{figure}[h!]
 	\begin{subfigure}[b]{\textwidth}
@@ -458,9 +459,16 @@ Obe implementaciji T pomnilne celice delujeta pravilno.
 \end{figure}
 
 \section{Zaključek}
+
 Implementacije pomnilnih celic po obeh izbranih virih delujejo pravilno.
-Iz stališča skalabilnosti imata obe implementaciji enako prednosti kot slabosti. Prva implementacija uporablja zasukane celice in nestandardne polovične zamike, ima pa preproste urine cone. Druga implementacija uporablja podobne strukture za vse pomnilne celice in kompleksnejše urine cone.\\
-Časovno bolj učinkovita je implementacija po viru \cite{quantum_dot}, saj vsaka celica vrne izhod v največ $1.25$ urinega cikla oz. $5$ urinih periodah. Iz prostorskega vidika implementacija po viru \cite{a_novel_approach} porabi manj prostora in celic, a se procesiranje izvaja dlje.
+
+Iz stališča skalabilnosti imata obe implementaciji enako prednosti kot slabosti.
+Prva implementacija uporablja zasukane celice in nestandardne polovične zamike, ima pa preproste urine cone.
+Druga implementacija uporablja podobne strukture za vse pomnilne celice in kompleksnejše urine cone.
+
+Časovno bolj učinkovita je implementacija po viru \cite{quantum_dot}, saj vsaka celica vrne izhod v največ $1.25$ urinega cikla oz.~$5$ urinih periodah. 
+Iz prostorskega vidika implementacija po viru \cite{a_novel_approach} porabi manj prostora in celic, a se procesiranje izvaja dlje.
+
 \bibliographystyle{babplain}
 \bibliography{pomnjenje} 
 
