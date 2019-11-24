@@ -253,9 +253,9 @@ Delovanje pomnilnih celic je podano v tabelah na sliki \ref{tab-cells-table}.
 
 \subsection{Obstoječe implementacije}
 
-V članku \cite{quantum_dot} iz leta 2003 so predstavljene implementacije štirih osnovnih pomnilnih celic. Vse celice porabijo en urin cikel za procesiranje vhodov. Pri postavitvi celic vir uporablja pravilo čimbolj preprostih oblik urinih con in čimmanj le-teh. Po drugi strani pa so nekatere celice zasukane za kot $ 45^{\circ} $ ali zamaknjene za polovico svoje velikosti, kar lahko negativno vpliva na izvedljivost implementacije. Vir uporablja križanje linij, kar je možno doseči z uporabo alternirajočega vodila (rotiranih celic). \\
+V članku \cite{quantum_dot} iz leta 2003 so predstavljene implementacije štirih osnovnih pomnilnih celic. Celice porabijo od $1$ do $1,25$ urinega cikla za procesiranje vhodov. Pri postavitvi celic vir uporablja pravilo čimbolj preprostih oblik urinih con in čimmanj le-teh. Po drugi strani pa so nekatere celice zasukane za kot $ 45^{\circ} $ ali zamaknjene za polovico svoje velikosti, kar lahko negativno vpliva na izvedljivost implementacije. Vir uporablja križanje linij, kar je možno doseči z uporabo alternirajočega vodila (rotiranih celic). \\
 
-Vse implementacije pomnilnih celic v viru \cite{a_novel_approach} iz leta 2018 temeljijo na izpeljavah izraza, ki opisuje RS celico. Te implementacije porabijo manj celic ter ponudijo tako izhodno stanje $Q$ kot njegovo negacijo $\bar{Q}$, so pa zato urine cone bolj kompleksne in uporabljeni so manj stabilni negatorji kot v prvem viru. Vse celice se izvedejo v $1.5$ urinega cikla, le D pomnilna celica ima latenco $1.25$ urinega cikla.
+Vse implementacije pomnilnih celic v viru \cite{a_novel_approach} iz leta 2018 temeljijo na izpeljavah izraza, ki opisuje RS celico. Te implementacije porabijo manj celic ter ponudijo tako izhodno stanje $Q$ kot njegovo negacijo $\bar{Q}$, so pa zato urine cone bolj kompleksne in uporabljeni so manj stabilni negatorji kot v prvem viru. Vse celice se izvedejo v $1$ do $1.5$ urinega cikla.
 
 
 
@@ -379,7 +379,7 @@ V sledečem poglavju bomo analizirali rezultate simulacij pomnilnih celic in jih
 
 \subsubsection{D pomnilna celica}
 Na sliki \ref{fig-d-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $D$ in urinega signala $Clock$.
-Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1$ urin cikel, implementacija po viru \cite{a_novel_approach} pa $5$ urinih faz, kar je $1.25$ urinega cikla. Obe simulaciji se izvajata $3$ sekunde.\\
+Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1.25$ urinega cikla, implementacija po viru \cite{a_novel_approach} pa $1$ urin cikel. Obe simulaciji se izvajata $3$ sekunde.\\
 Ob primerjavi rezultatov simulacij D celic opazimo, da se implementacija vira \cite{quantum_dot} obnaša pravilno, druga implementacija pa v primeru $d=1, q=0$ vrne $D^1q=0$, kar ni skladno s pričakovanji.
 
 \begin{figure}[h!]
@@ -399,7 +399,7 @@ Ob primerjavi rezultatov simulacij D celic opazimo, da se implementacija vira \c
 
 \subsubsection{JK pomnilna celica}
 Na sliki \ref{fig-jk-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhodov $J$ in $K$ ter urinega signala $Clock$.
-Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1$ urin cikel, implementacija po viru \cite{a_novel_approach} pa $6$ urinih faz, kar je $1.5$ urinega cikla.\\
+Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1.25$ urinega cikla, implementacija po viru \cite{a_novel_approach} pa $1.5$ urinega cikla.\\
 Implementaciji JK celice po obeh virih delujeta pravilno.
 
 \begin{figure}[h!]
@@ -419,8 +419,8 @@ Implementaciji JK celice po obeh virih delujeta pravilno.
 
 \subsubsection{RS pomnilna celica}
 Na sliki \ref{fig-rs-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhodov $R$ in $S$ ter urinega signala $Clock$.
-Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1$ urin cikel, implementacija po viru \cite{a_novel_approach} pa $6$ urinih faz, kar je $1.5$ urinega cikla.\\
-Implementaciji RS celice po viru \cite{quantum_dot} delujeta pravilno.
+Obe implementaciji potrebujeta za obdelavo signala $1.25$ urinega cikla.\\
+Implementaciji RS celice delujeta pravilno.
 
 \begin{figure}[h!]
 	\begin{subfigure}[b]{\textwidth}
@@ -439,7 +439,7 @@ Implementaciji RS celice po viru \cite{quantum_dot} delujeta pravilno.
 
 \subsubsection{T pomnilna celica}
 Na sliki \ref{fig-t-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $T$ in urinega signala $Clock$.
-Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1$ urin cikel, implementacija po viru \cite{a_novel_approach} pa $6$ urinih faz, kar je $1.5$ urinega cikla.\\
+Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1$ urin cikel, implementacija po viru \cite{a_novel_approach} pa $1.5$ urinega cikla.\\
 Obe implementaciji T pomnilne celice delujeta pravilno.
 
 \begin{figure}[h!]
@@ -458,8 +458,9 @@ Obe implementaciji T pomnilne celice delujeta pravilno.
 \end{figure}
 
 \section{Zaključek}
-Implementacije pomnilnih celic po obeh izbranih virih delujejo pravilno. Bolj uporabna je implementacija po viru \cite{quantum_dot}, saj vsaka celica vrne izhod v enem urinem ciklu oz. $4$ urinih periodah. Iz prostorskega vidika sicer implementacija po viru \cite{a_novel_approach} porabi manj prostora in celic ter uporablja podobne strukture za vse pomnilne celice, a se procesiranje izvaja dlje - D pomnilna celica porabi 5 urinih faz, ostale pa 6.
-
+Implementacije pomnilnih celic po obeh izbranih virih delujejo pravilno.
+Iz stališča skalabilnosti imata obe implementaciji enako prednosti kot slabosti. Prva implementacija uporablja zasukane celice in nestandardne polovične zamike, ima pa preproste urine cone. Druga implementacija uporablja podobne strukture za vse pomnilne celice in kompleksnejše urine cone.\\
+Časovno bolj učinkovita je implementacija po viru \cite{quantum_dot}, saj vsaka celica vrne izhod v največ $1.25$ urinega cikla oz. $5$ urinih periodah. Iz prostorskega vidika implementacija po viru \cite{a_novel_approach} porabi manj prostora in celic, a se procesiranje izvaja dlje.
 \bibliographystyle{babplain}
 \bibliography{pomnjenje} 
 
