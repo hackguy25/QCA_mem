@@ -375,7 +375,7 @@ V sledečem poglavju bomo analizirali rezultate simulacij pomnilnih celic in jih
 
 \subsubsection{D pomnilna celica}
 Na sliki \ref{fig-d-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $D$ in urinega signala $Clock$.
-Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1$ urin cikel, implementacija po viru \cite{a_novel_approach} pa $5$ urinih faz, kar je $1.25$ urinega cikla.\\
+Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1$ urin cikel, implementacija po viru \cite{a_novel_approach} pa $5$ urinih faz, kar je $1.25$ urinega cikla. Obe simulaciji se izvajata $3$ sekunde.\\
 Ob primerjavi rezultatov simulacij D celic opazimo, da se implementacija vira \cite{quantum_dot} obnaša pravilno, druga implementacija pa v primeru $d=1, q=0$ vrne $D^1q=0$, kar ni skladno s pričakovanji.
 
 \begin{figure}[h!]
@@ -396,7 +396,7 @@ Ob primerjavi rezultatov simulacij D celic opazimo, da se implementacija vira \c
 \subsubsection{JK pomnilna celica}
 Na sliki \ref{fig-jk-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhodov $J$ in $K$ ter urinega signala $Clock$.
 Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1$ urin cikel, implementacija po viru \cite{a_novel_approach} pa $6$ urinih faz, kar je $1.5$ urinega cikla.\\
-Če primerjamo rezultate simulacij D celic opazimo, da implementacija vira \cite{quantum_dot} ob vhodu $j=1,k=0,d=1$ včasih vrne $1$ namesto $0$, vhod $j=1,k=1,d=1$ pa vrne $1$. Drugi vir pri $j=0,k=1,D=1$ in pri $j=1, k=1, d=0$ vrne $0$.
+Implementaciji JK celice po obeh virih delujeta pravilno.
 
 \begin{figure}[h!]
 	\begin{subfigure}[b]{\textwidth}
@@ -416,7 +416,7 @@ Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1$ urin
 \subsubsection{RS pomnilna celica}
 Na sliki \ref{fig-rs-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhodov $R$ in $S$ ter urinega signala $Clock$.
 Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1$ urin cikel, implementacija po viru \cite{a_novel_approach} pa $6$ urinih faz, kar je $1.5$ urinega cikla.\\
-Simulacija RS celice po viru \cite{quantum_dot} $r=1,s=0,q=0$ in $r=0,s=0,q=1$ vrne napačen rezultat, implementacija po \cite{a_novel_approach} pa ima napačen rezultat pri  $r=1,s=0,q=0$ in  $r=0,s=0,q=0$.
+Implementaciji RS celice po viru \cite{quantum_dot} delujeta pravilno.
 
 \begin{figure}[h!]
 	\begin{subfigure}[b]{\textwidth}
@@ -436,7 +436,7 @@ Simulacija RS celice po viru \cite{quantum_dot} $r=1,s=0,q=0$ in $r=0,s=0,q=1$ v
 \subsubsection{T pomnilna celica}
 Na sliki \ref{fig-t-sim} vidimo obnašanje $Q$ celice v odvisnosti od vhoda $T$ in urinega signala $Clock$.
 Implementacija po viru \cite{quantum_dot} potrebuje za obdelavo signala $1$ urin cikel, implementacija po viru \cite{a_novel_approach} pa $6$ urinih faz, kar je $1.5$ urinega cikla.\\
-Implementacija T pomnilne celice po viru \cite{quantum_dot} deluje pravilno. Druga implementacija pri $t=1,q=0$ vrne $0$ namesto $1$.
+Obe implementaciji T pomnilne celice delujeta pravilno.
 
 \begin{figure}[h!]
 	\begin{subfigure}[b]{\textwidth}
@@ -454,7 +454,7 @@ Implementacija T pomnilne celice po viru \cite{quantum_dot} deluje pravilno. Dru
 \end{figure}
 
 \section{Zaključek}
-\todo: kratek povzetek glavnih ugotovitev + smernice za nadaljnje delo
+Implementacije pomnilnih celic po obeh izbranih virih delujejo pravilno. Bolj uporabna je implementacija po viru \cite{quantum_dot}, saj vsaka celica vrne izhod v enem urinem ciklu oz. $4$ urinih periodah. Iz prostorskega vidika sicer implementacija po viru \cite{a_novel_approach} porabi manj prostora in celic ter uporablja podobne strukture za vse pomnilne celice, a se procesiranje izvaja dlje - D pomnilna celica porabi 5 urinih faz, ostale pa 6.
 
 \bibliographystyle{babplain}
 \bibliography{pomnjenje} 
